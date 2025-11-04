@@ -4,6 +4,6 @@ namespace Lms.CourseManagement.Domain.Repositories
 {
     public interface IInstructorRepository
     {
-        Task<bool> AddInstructorAsync(Instructor instructor, CancellationToken cancellationToken);
+        Task AddInstructorAsync(Instructor instructor, CancellationToken cancellationToken);
     }
 }

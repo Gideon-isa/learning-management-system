@@ -29,6 +29,7 @@
 
         // System and Status Information
         public bool IsActive { get; set; } = true;
+        public bool IsProfileCompleted { get; set; }
         public DateTime CreatedOn { get; set; } = DateTime.UtcNow;
         public DateTime? LastLogin { get; set; }
         public string? CreatedBy { get; set; }

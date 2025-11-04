@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Lms.Identity.Infrastructure.Migrations
 {
     [DbContext(typeof(UserIdentityDbContext))]
-    [Migration("20251102125336_AddedInstructorStatus")]
-    partial class AddedInstructorStatus
+    [Migration("20251104114747_updatedIsProfileCompleted")]
+    partial class updatedIsProfileCompleted
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -148,6 +148,9 @@ namespace Lms.Identity.Infrastructure.Migrations
                         .HasColumnType("bit");
 
                     b.Property<bool>("IsEmailVerified")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("IsProfileCompleted")
                         .HasColumnType("bit");
 
                     b.Property<DateTime?>("LastLogin")

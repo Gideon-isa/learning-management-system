@@ -1,13 +1,22 @@
 ﻿using Lms.CourseManagement.Domain.Entities;
 using Lms.CourseManagement.Domain.Repositories;
+using Lms.CourseManagement.Infrastructure.Configuration;
+using Lms.CourseManagement.Infrastructure.DbContex;
 
 namespace Lms.CourseManagement.Infrastructure.Persistence
 {
     public class InstructorRepository : IInstructorRepository
     {
-        public Task<bool> AddInstructorAsync(Instructor instructor, CancellationToken cancellationToken)
+        private readonly CourseManagementDbContext _dbContext;
+
+        public InstructorRepository(CourseManagementDbContext dbContext)
         {
-            throw new NotImplementedException();
+            _dbContext = dbContext;
+        }
+
+        public async Task AddInstructorAsync(Instructor instructor, CancellationToken cancellationToken)
+        {
+            await _dbContext.Instructors.AddAsync(instructor);
         }
     }
 }

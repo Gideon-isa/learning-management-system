@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Lms.Identity.Infrastructure.Migrations
 {
     /// <inheritdoc />
-    public partial class AddedInstructorStatus : Migration
+    public partial class updatedIsProfileCompleted : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -48,6 +48,7 @@ namespace Lms.Identity.Infrastructure.Migrations
                     StaffId = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     InstructorStatus = table.Column<int>(type: "int", nullable: false),
                     IsActive = table.Column<bool>(type: "bit", nullable: false),
+                    IsProfileCompleted = table.Column<bool>(type: "bit", nullable: false),
                     CreatedOn = table.Column<DateTime>(type: "datetime2", nullable: false),
                     LastLogin = table.Column<DateTime>(type: "datetime2", nullable: true),
                     CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),

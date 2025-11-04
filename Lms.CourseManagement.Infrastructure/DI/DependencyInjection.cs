@@ -26,6 +26,7 @@ namespace Lms.CourseManagement.Infrastructure.DI
             services.AddScoped<ILessonRespositoy, LessonRepository>();
             services.AddScoped<ILessonTagRespository, LessonTagRepository>();
             services.AddScoped<MediatRIntegrationEventPublisher>(); // implementing the concrete
+            services.AddScoped<IInstructorRepository, InstructorRepository>();
             return services;
         }
     }
