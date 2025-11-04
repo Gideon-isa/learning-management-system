@@ -14,7 +14,7 @@ namespace Lms.Identity.Application.Features.Identity.Users.Commands.CompleteUser
 
         public async Task<IResponseWrapper<UserResponse>> Handle(CompleteUserProfileCommand request, CancellationToken cancellationToken)
         {
-            var userDto = await _userService.UpdateUserAsync(request, cancellationToken);
+            var userDto = await _userService.CompleteProfileAsync(request, cancellationToken);
             return await ResponseWrapper<UserResponse>.SuccessAsync(data: userDto, ["Updated successfully"]);
             throw new NotImplementedException();
         }

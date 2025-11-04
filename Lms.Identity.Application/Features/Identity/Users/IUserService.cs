@@ -27,5 +27,6 @@ namespace Lms.Identity.Application.Features.Identity.Users
         Task<(bool, UserResponse)> ApproveInstructorRequestAsync(InstructorApprovalCommand command, CancellationToken token);
         Task<List<UserResponse>> GetUserInstructorRequestsAsync(GetUserInstructorsQuery request, CancellationToken token);
         Task<UserResponse> UpdateUserAsync(CompleteUserProfileCommand command, CancellationToken token);
+        Task<UserResponse> CompleteProfileAsync(CompleteUserProfileCommand command, CancellationToken token);
     }
 }

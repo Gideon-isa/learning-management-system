@@ -270,6 +270,9 @@ namespace Lms.Identity.Infrastructure.Services
         public async Task<UserResponse> InitiateInstructorRoleAsync(string userIdOrEmail, CancellationToken token)
         {
             var user = await GetActiveUserByEmailAsync(userIdOrEmail, token);
+            if (!user.IsProfileCompleted)
+                throw new Exception("First complete you basic information");
+
             user.InstructorStatus = InstructorStatus.PendingApproval;
             var result = await _userManager.UpdateAsync(user);
             if (!result.Succeeded)
@@ -327,6 +330,15 @@ namespace Lms.Identity.Infrastructure.Services
         public async Task<UserResponse> UpdateUserAsync(CompleteUserProfileCommand command, CancellationToken token)
         {
             var user = await GetActiveUserByEmailAsync(command.Id.ToString(), token);
+            var updatedUser = command.Adapt(user); // updating the extisting tracked user
+            await _userManager.UpdateAsync(updatedUser);
+            return updatedUser.Adapt<UserResponse>();
+        }
+
+        public async Task<UserResponse> CompleteProfileAsync(CompleteUserProfileCommand command, CancellationToken token)
+        {
+            var user = await GetActiveUserByEmailAsync(command.Id.ToString(), token);
+            user.IsProfileCompleted = true; // Need to revisit this 
             var updatedUser = command.Adapt(user); // updating the extisting tracked user
             await _userManager.UpdateAsync(updatedUser);
             return updatedUser.Adapt<UserResponse>();
