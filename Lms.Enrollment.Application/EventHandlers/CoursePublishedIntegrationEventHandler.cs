@@ -13,6 +13,7 @@ namespace Lms.Enrollment.Application.EventHandlers
 
             await Task.CompletedTask;
             Console.WriteLine("Test");
+            Console.WriteLine("Second");
            
         }
     }
