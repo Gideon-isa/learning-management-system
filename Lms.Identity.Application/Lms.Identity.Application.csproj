@@ -1,0 +1,18 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net9.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Folder Include="Features\Identity\Users\Commands\ResetPassword\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Lms.Shared.Application\Lms.Shared.Application.csproj" />
+    <ProjectReference Include="..\Lms.SharedKernel\Lms.SharedKernel.csproj" />
+  </ItemGroup>
+
+</Project>

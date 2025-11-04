@@ -1,0 +1,27 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net9.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="MediatR" Version="13.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" Version="9.0.10" />
+	 <PackageReference Include="Scrutor" Version="6.1.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Lms.CourseManagement.Domain\Lms.CourseManagement.Domain.csproj" />
+    <ProjectReference Include="..\Lms.Shared.Application\Lms.Shared.Application.csproj" />
+    <ProjectReference Include="..\Lms.Shared.IntegrationEvents\Lms.Shared.IntegrationEvents.csproj" />
+    <ProjectReference Include="..\Lms.SharedKernel\Lms.SharedKernel.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Features\CourseFeatures\Queries\GetCourseCode\" />
+    <Folder Include="Features\CourseFeatures\Queries\SearchCourseQuery\" />
+  </ItemGroup>
+
+</Project>

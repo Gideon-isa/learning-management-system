@@ -1,0 +1,32 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net9.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <UserSecretsId>fbb7d975-1751-4018-9b89-6e676b6ebf57</UserSecretsId>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="9.0.9" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="9.0.10">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="NSwag.AspNetCore" Version="14.6.1" />
+    <PackageReference Include="Swashbuckle.AspNetCore.Annotations" Version="9.0.6" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Lms.Assessment.Application\Lms.Assessment.Application.csproj" />
+    <ProjectReference Include="..\Lms.CourseManagement.Application\Lms.CourseManagement.Application.csproj" />
+    <ProjectReference Include="..\Lms.CourseManagement.Infrastructure\Lms.CourseManagement.Infrastructure.csproj" />
+    <ProjectReference Include="..\Lms.Enrollment.Application\Lms.Enrollment.Application.csproj" />
+    <ProjectReference Include="..\Lms.Identity.Application\Lms.Identity.Application.csproj" />
+    <ProjectReference Include="..\Lms.Identity.Infrastructure\Lms.Identity.Infrastructure.csproj" />
+    <ProjectReference Include="..\Lms.Shared.Application\Lms.Shared.Application.csproj" />
+    <ProjectReference Include="..\Lms.Shared.IntegrationEvents\Lms.Shared.IntegrationEvents.csproj" />
+    <ProjectReference Include="..\Lms.SharedKernel\Lms.SharedKernel.csproj" />
+  </ItemGroup>
+
+</Project>
