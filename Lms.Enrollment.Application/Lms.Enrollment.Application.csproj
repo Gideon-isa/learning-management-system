@@ -12,6 +12,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Lms.Enrollment.Domain\Lms.Enrollment.Domain.csproj" />
     <ProjectReference Include="..\Lms.Shared.Application\Lms.Shared.Application.csproj" />
     <ProjectReference Include="..\Lms.Shared.IntegrationEvents\Lms.Shared.IntegrationEvents.csproj" />
     <ProjectReference Include="..\Lms.SharedKernel\Lms.SharedKernel.csproj" />

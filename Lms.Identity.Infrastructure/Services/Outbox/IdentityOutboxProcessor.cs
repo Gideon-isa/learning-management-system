@@ -76,7 +76,7 @@ namespace Lms.Identity.Infrastructure.Services.Outbox
                     throw;
                 }
 
-                await Task.Delay(TimeSpan.FromSeconds(120), stoppingToken);
+                await Task.Delay(TimeSpan.FromSeconds(180), stoppingToken);
 
             }
 

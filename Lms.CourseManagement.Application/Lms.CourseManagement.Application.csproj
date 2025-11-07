@@ -22,6 +22,7 @@
   <ItemGroup>
     <Folder Include="Features\CourseFeatures\Queries\GetCourseCode\" />
     <Folder Include="Features\CourseFeatures\Queries\SearchCourseQuery\" />
+    <Folder Include="Integration\" />
   </ItemGroup>
 
 </Project>

@@ -1,13 +1,16 @@
 using Lms.Api.DependencyInjections;
 using Lms.Api.Middleware;
+using Lms.Assessment.Application;
 using Lms.Assessment.Application.EventHandlers;
 using Lms.CourseManagement.Application;
 using Lms.CourseManagement.Application.DI;
 using Lms.CourseManagement.Application.Features.CourseFeatures.Commands.PublishCourse;
 using Lms.CourseManagement.Infrastructure.Configuration;
 using Lms.CourseManagement.Infrastructure.DI;
+using Lms.Enrollment.Application;
 using Lms.Enrollment.Application.DI;
 using Lms.Enrollment.Application.EventHandlers;
+using Lms.Enrollment.Infrastructure.DI;
 using Lms.Identity.Application;
 using Lms.Identity.Application.DependencyInjection;
 using Lms.Identity.Infrastructure.DI;
@@ -35,13 +38,14 @@ builder.Services.AddIdentityApplicationServices();
 builder.Services.AddCourseInfrastructureServices(builder.Configuration);
 builder.Services.AddCourseManagementApplicationServices();
 builder.Services.AddEnrollmentApplication();
+builder.Services.AddEnrollmentInfrastructureServices(builder.Configuration);
 
 //Register all request notification handlers from all application layers
 builder.Services.Scan(scan => scan
     .FromAssemblies(
         typeof(ICourseManagementMarker).Assembly,
-        typeof(CoursePublishedHandler).Assembly,
-        typeof(EventHandlerMarker).Assembly,
+        typeof(IEnrollmentApplicationMarker).Assembly,
+        typeof(IAssessmentApplicationMarker).Assembly,
         typeof(IIdentityApplicationMarker).Assembly
     )
     .AddClasses(classes => classes.AssignableTo(typeof(ICustomRequestHandler<,>)))

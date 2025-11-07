@@ -4,7 +4,6 @@ using Lms.CourseManagement.Domain.Repositories;
 using Lms.Shared.Abstractions.Messaging;
 using Lms.Shared.Application.CustomMediator.Interfaces.Notification;
 using Lms.Shared.IntegrationEvents.Identity;
-using Lms.SharedKernel.Interfaces;
 
 namespace Lms.CourseManagement.Application.EventHandlers
 {
@@ -19,8 +18,6 @@ namespace Lms.CourseManagement.Application.EventHandlers
             _instructorRepository = instructorRepository;
             _unitOfWork = unitOfWork;
         }
-
-
 
         // Saving the
         public async Task Handle(IntegrationEventNotification<CreateInstructorPublishedIntegrationEvent> notification, 
