@@ -37,6 +37,7 @@ namespace Lms.CourseManagement.Domain.Entities
         public IReadOnlyCollection<LessonImage> Images => _images.AsReadOnly();
         public IReadOnlyCollection<LessonVideo> Videos => _videos.AsReadOnly();
         public IReadOnlyCollection<LessonTagReference> Tags => _tags.AsReadOnly();
+
         public void AssignOrder(int order) => Order = order;
 
         public static Lesson Create(

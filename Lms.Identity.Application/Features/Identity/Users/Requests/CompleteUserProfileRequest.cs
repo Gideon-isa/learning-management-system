@@ -7,8 +7,10 @@ namespace Lms.Identity.Application.Features.Identity.Users.Requests
         public string? FirstName { get; set; } = default!;
         public string? LastName { get; set; } = default!;
         public string? MiddleName { get; set; }
+        public string? UserName { get; set; }
         public string? DisplayName { get; set; }
         public string? PhoneNumber { get; set; }
+        public UserRole Role { get; set; }
 
         // Profile and Contact Information
         public string? ProfileImageUrl { get; set; }

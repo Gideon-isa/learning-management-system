@@ -33,6 +33,7 @@ namespace Lms.Identity.Application.Features.Identity.Users.Commands.InstructorAp
 
             if (isSuccessful && request.ApprovalStatus == InstructorStatus.Approved)
             { 
+                // convert the user response object to a Domain Evemt
                 var approvedInstructorEvent = userResponse.Adapt<ApprovedInstructorEvent>();
 
                 instructorEvent.AddDomainEvent(approvedInstructorEvent);
