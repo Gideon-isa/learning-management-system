@@ -20,7 +20,8 @@ namespace Lms.CourseManagement.Domain.Entities
         {
             Id = Guid.NewGuid();
             Type = integrationEvent.GetType().AssemblyQualifiedName;
-            Content = JsonSerializer.Serialize(integrationEvent);
+            Content = JsonSerializer.Serialize(integrationEvent); // serialized
+            OccuredOn = DateTime.UtcNow;
         }
 
         public void MarkProcessedOn() => ProcessedOn = DateTime.Now;

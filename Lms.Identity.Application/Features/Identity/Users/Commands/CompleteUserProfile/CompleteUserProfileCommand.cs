@@ -1,5 +1,6 @@
 ﻿using Lms.Shared.Abstractions.Interfaces.Request;
 using Lms.SharedKernel.Common.Wrappers;
+using Lms.SharedKernel.Domain.Enums;
 
 namespace Lms.Identity.Application.Features.Identity.Users.Commands.CompleteUserProfile
 {
@@ -10,6 +11,8 @@ namespace Lms.Identity.Application.Features.Identity.Users.Commands.CompleteUser
         public string? LastName { get; set; } = default!;
         public string? MiddleName { get; set; }
         public string? DisplayName { get; set; }
+        public string? UserName { get; set; }
+        public UserRole Role { get; set; }
 
         // Profile and Contact Information
         public string? ProfileImageUrl { get; set; }

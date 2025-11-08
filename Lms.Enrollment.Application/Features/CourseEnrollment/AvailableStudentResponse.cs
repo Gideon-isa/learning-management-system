@@ -1,0 +1,11 @@
+﻿namespace Lms.Enrollment.Application.Features.CourseEnrollment
+{
+    public class AvailableStudentResponse
+    {
+        public Guid Id { get; set; }
+        public string FirstName { get; set; } = string.Empty;
+        public string LastName { get; set; } = string.Empty;
+        public string Username { get; set; } = string.Empty;
+        public bool IsActive { get; set; }
+    }
+}

@@ -7,9 +7,9 @@ namespace Lms.Assessment.Application.EventHandlers
 {
     public class CoursePublishedIntegration : ICustomNotificationHandler<IntegrationEventNotification<CoursePublishedIntegrationEvent>>
     {
-        public Task Handle(IntegrationEventNotification<CoursePublishedIntegrationEvent> notification, CancellationToken cancellationToken)
+        public async Task Handle(IntegrationEventNotification<CoursePublishedIntegrationEvent> notification, CancellationToken cancellationToken)
         {
-            throw new NotImplementedException();
+            await Task.CompletedTask;
         }
     }
 }

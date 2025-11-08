@@ -1,4 +1,5 @@
-﻿using Lms.Identity.Application.Exceptions;
+﻿using Lms.Identity.Application.Events.Student;
+using Lms.Identity.Application.Exceptions;
 using Lms.Identity.Application.Features.Identity.Users;
 using Lms.Identity.Application.Features.Identity.Users.Commands.AddUser;
 using Lms.Identity.Application.Features.Identity.Users.Commands.CompleteUserProfile;
@@ -11,6 +12,7 @@ using Lms.Identity.Infrastructure.Constants;
 using Lms.Identity.Infrastructure.Identity;
 using Lms.Identity.Infrastructure.Identity.Models;
 using Lms.Shared.Application;
+using Lms.SharedKernel.Application;
 using Lms.SharedKernel.Domain.Enums;
 using Mapster;
 using Microsoft.AspNetCore.Identity;
@@ -25,13 +27,16 @@ namespace Lms.Identity.Infrastructure.Services
     {
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly RoleManager<ApplicationRole> _roleManager;
+        private readonly IDomainEventDispatcher _domainEventDispatcher;
         private readonly AppOptions _appOptions;
 
-        public UserService(UserManager<ApplicationUser> userManager, IOptions<AppOptions> appOptions, RoleManager<ApplicationRole> roleManager)
+        public UserService(UserManager<ApplicationUser> userManager, IOptions<AppOptions> appOptions, 
+            RoleManager<ApplicationRole> roleManager, IDomainEventDispatcher domainEventDispatcher)
         {
             _userManager = userManager;
             _appOptions = appOptions.Value;
             _roleManager = roleManager;
+            _domainEventDispatcher = domainEventDispatcher;
         }
 
         /// <summary>
@@ -339,9 +344,24 @@ namespace Lms.Identity.Infrastructure.Services
         {
             var user = await GetActiveUserByEmailAsync(command.Id.ToString(), token);
             user.IsProfileCompleted = true; // Need to revisit this 
-            var updatedUser = command.Adapt(user); // updating the extisting tracked user
-            await _userManager.UpdateAsync(updatedUser);
-            return updatedUser.Adapt<UserResponse>();
+            var studentEvent = new StudentRequest();
+
+            command.Adapt(user); // updating the extisting tracked user
+
+            //if student publish to the Enrollment Module
+            if (command.Role == UserRole.Student)
+            {
+                var newStudentEvent = user.Adapt<StudentEvent>();
+                studentEvent.AddDomainEvent(newStudentEvent);
+                await _domainEventDispatcher.DispatchAsync(studentEvent.DomainEvents, token);
+
+                studentEvent.ClearDomainEvents();
+
+                // logging
+            }
+
+            await _userManager.UpdateAsync(user);
+            return user.Adapt<UserResponse>();
         }
     }
 }

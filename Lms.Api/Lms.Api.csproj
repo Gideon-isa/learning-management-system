@@ -22,6 +22,7 @@
     <ProjectReference Include="..\Lms.CourseManagement.Application\Lms.CourseManagement.Application.csproj" />
     <ProjectReference Include="..\Lms.CourseManagement.Infrastructure\Lms.CourseManagement.Infrastructure.csproj" />
     <ProjectReference Include="..\Lms.Enrollment.Application\Lms.Enrollment.Application.csproj" />
+    <ProjectReference Include="..\Lms.Enrollment.Infrastructure\Lms.Enrollment.Infrastructure.csproj" />
     <ProjectReference Include="..\Lms.Identity.Application\Lms.Identity.Application.csproj" />
     <ProjectReference Include="..\Lms.Identity.Infrastructure\Lms.Identity.Infrastructure.csproj" />
     <ProjectReference Include="..\Lms.Shared.Application\Lms.Shared.Application.csproj" />

@@ -1,5 +1,4 @@
 ﻿using Lms.CourseManagement.Infrastructure.DbContex;
-using Lms.CourseManagement.Infrastructure.Integration;
 using Lms.Shared.IntegrationEvents.Integration;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
@@ -65,11 +64,10 @@ namespace Lms.CourseManagement.Infrastructure.Outbox
                         {
                             message.RetryCount++;
                             message.Error = ex.Message;
-                            message.NextRetryOn = DateTime.UtcNow.Add(RetryDelay);
-
-                           
+                            message.NextRetryOn = DateTime.UtcNow.Add(RetryDelay);  
                         }
                     }
+
                     await dbContext.SaveChangesAsync(stoppingToken);
                 }
                 catch (Exception)
