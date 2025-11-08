@@ -49,11 +49,12 @@ namespace Lms.Enrollment.Domain.Entities
 
         public void WithdrawStudent(Guid studentId)
         {
-            var enrollment = _studentEnrollments.FirstOrDefault(e => e.StudentId == studentId);
-            if (enrollment is null)
+            var studentEnrollment = _studentEnrollments.FirstOrDefault(e => e.StudentId == studentId);
+            if (studentEnrollment is null)
                 throw new InvalidOperationException("Student not enrolled in this course.");
 
-            enrollment.Withdraw();
+            studentEnrollment.Withdraw();
+            _studentEnrollments.Remove(studentEnrollment);
         }
     }
 }

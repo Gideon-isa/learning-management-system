@@ -1,5 +1,7 @@
-﻿using Lms.Api.Contracts.Enrollment;
+﻿using Azure.Core;
+using Lms.Api.Contracts.Enrollment;
 using Lms.CourseManagement.Application.Features.Module.Commands;
+using Lms.CourseManagement.Domain.Entities;
 using Lms.Enrollment.Application.Features.CourseEnrollment.Command;
 using Lms.Enrollment.Application.Features.CourseEnrollment.Queries;
 using Lms.Identity.Application.Features.Identity.Users.Queries.GetAll;
@@ -14,7 +16,7 @@ namespace Lms.Api.Controllers
     public class CourseEnrollmentsController : BaseApiController
     {
         [HttpPost("{courseId}/")]
-        public async Task<IActionResult> EnrollStudentAsync([FromBody] CreateStudentEnrollmentRequest request, Guid courseId, 
+        public async Task<IActionResult> EnrollStudentsAsync([FromBody] CreateStudentEnrollmentRequest request, Guid courseId, 
             [FromServices] ICommandDispatcher commandDispatcher, CancellationToken cancellationToken)
         {
             var cmd = new CreateEnrollmentCommand { CourseId = courseId, StudentIds = request.StudentIds }; 
@@ -39,7 +41,7 @@ namespace Lms.Api.Controllers
 
             if (response.IsSuccessful)
             {
-                return Ok(response.Data);
+                return Ok(response);
                 //return CreatedAtAction(nameof(CreateModule), new { id = response.Data.Id });
             }
             return BadRequest(response);
@@ -54,7 +56,6 @@ namespace Lms.Api.Controllers
             if (response.IsSuccessful)
             {
                 return Ok(response.Data);
-                //return CreatedAtAction(nameof(CreateModule), new { id = response.Data.Id });
             }
             return BadRequest(response);
 
@@ -69,10 +70,39 @@ namespace Lms.Api.Controllers
             if (response.IsSuccessful)
             {
                 return Ok(response.Data);
-                //return CreatedAtAction(nameof(CreateModule), new { id = response.Data.Id });
             }
             return BadRequest(response);
+        }
 
+        [HttpPut("{enrollmentId}/students/{studentId}/unenroll-student")]
+        public async Task<IActionResult> UnEnrollStudentsAsync([FromRoute] Guid enrollmentId, Guid studentId,
+            [FromServices] ICommandDispatcher commandDispatcher, CancellationToken cancellationToken)
+        {
+            var cmd = new UnEnrollStudentCommand { EnrollmentId = enrollmentId, StudentId = studentId };
+            await commandDispatcher.DispatcherAsync(cmd, cancellationToken);
+
+            var response = await CustomMediator.Send(cmd, cancellationToken);
+
+            if (response.IsSuccessful)
+            {
+                return Ok(response);
+            }
+            return BadRequest(response);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> GetAllEnrollment([FromServices] ICommandDispatcher commandDispatcher, CancellationToken cancellationToken)
+        {
+            var query = new GetAllEnrollmentsQuery();
+            await commandDispatcher.DispatcherAsync(query, cancellationToken);
+
+            var response = await CustomMediator.Send(query, cancellationToken);
+
+            if (response.IsSuccessful)
+            {
+                return Ok(response);
+            }
+            return BadRequest(response);
         }
     }
 }

@@ -33,15 +33,15 @@ namespace Lms.Enrollment.Application.Features.CourseEnrollment.Command
             var availableCourse = await _availableCoursesRepository.GetAvailableCourseByIdAsync(request.CourseId, cancellationToken)
                 ?? throw new Exception("Course is not available for enrollment");
 
-            List<Guid> studentIdsList = [.. request.StudentIds];
+            //List<Guid> studentIdsList = [.. request.StudentIds];
             // Getting students
-            var students = await _studentRepository.GetStudentsByIds(studentIdsList, cancellationToken)
-                ?? throw new Exception("Student not yet eligible to be enrolled, kindly complete user's profile");
+            var students = await _studentRepository.GetStudentsByIds(request.StudentIds, cancellationToken)
+                ?? throw new Exception("Students are not yet eligible to be enrolled, kindly complete user's profile");
 
             // retrieving the course enrollment and if non exists, creating and instance
             var courseEnrollment = await _courseEnrollmentRespository.GetCourseEnrollmentByCourseId(request.CourseId, cancellationToken);
 
-            if (courseEnrollment is null)
+            if (courseEnrollment == null)
             {
                 courseEnrollment = Domain.Entities.CourseEnrollment.Create(availableCourse.CourseId, availableCourse.CourseTitle);
                 _ = await _courseEnrollmentRespository.CreateCourseEnrollment(courseEnrollment, cancellationToken);
