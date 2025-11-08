@@ -1,4 +1,5 @@
 ﻿using Lms.Enrollment.Application.EventHandlers;
+using Lms.Enrollment.Application.Mapping;
 using Lms.Enrollment.Domain.Services;
 using Lms.Shared.Application;
 using Lms.Shared.Application.CustomMediator;
@@ -26,6 +27,9 @@ namespace Lms.Enrollment.Application.DI
             services.AddScoped<ICustomMediator, MiniMediator>();
             //services.AddScoped<IDomainEnrollmentService, EnrollmentService>();
             //services.AddCustomMediator(typeof(CoursePublishedIntegrationEventHandler).Assembly);
+
+            // Registering the Mapster
+            EnrollmentMappingConfig.RegisterEnrollmentConfig();
 
             return services;
         }

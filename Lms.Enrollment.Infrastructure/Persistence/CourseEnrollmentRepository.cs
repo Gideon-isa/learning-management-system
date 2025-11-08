@@ -1,4 +1,5 @@
 ﻿using Lms.Enrollment.Domain.Entities;
+using Lms.Enrollment.Domain.Enums;
 using Lms.Enrollment.Domain.Respositories;
 using Lms.Enrollment.Infrastructure.DataContext;
 using Microsoft.EntityFrameworkCore;
@@ -27,6 +28,11 @@ namespace Lms.Enrollment.Infrastructure.Persistence
             return Task.CompletedTask;    
         }
 
+        public async Task<List<CourseEnrollment>> GetAllAsync(CancellationToken cancellationToken)
+        {
+            return await _dbContext.CourseEnrollments.AsNoTracking().ToListAsync();
+        }
+
         public async Task<CourseEnrollment?> GetCourseEnrollmentByCourseId(Guid courseId, CancellationToken cancellationToken)
         {
             return await _dbContext.CourseEnrollments.FirstOrDefaultAsync(c => c.CourseId == courseId);
@@ -34,8 +40,11 @@ namespace Lms.Enrollment.Infrastructure.Persistence
 
         public async Task<CourseEnrollment?> GetCourseEnrollmentById(Guid id, CancellationToken cancellationToken)
         {
-            return await _dbContext.CourseEnrollments.FirstOrDefaultAsync(c => c.Id == id, cancellationToken);
-
+            return await _dbContext.CourseEnrollments
+                .Where(c => c.Id == id)
+                .Include(c => c.StudentEnrollments
+                .Where(s => s.Status != EnrollmentStatus.Withdrawn))
+                .FirstOrDefaultAsync(cancellationToken);
         }
 
         public async Task<List<CourseEnrollment>> GetCourseEnrollmentsByCourseId(Guid courseId, CancellationToken cancellationToken)

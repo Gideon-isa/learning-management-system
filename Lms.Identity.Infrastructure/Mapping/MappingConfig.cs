@@ -9,6 +9,7 @@ namespace Lms.Identity.Infrastructure.Mapping
     {
         public static void RegisterConfig()
         {
+            // mapping from Application to UserResponse configuration
             TypeAdapterConfig<ApplicationUser, UserResponse>
                 .NewConfig()
                 .Map(dest => dest.InstructorStatus, src => src.InstructorStatus.ToString());

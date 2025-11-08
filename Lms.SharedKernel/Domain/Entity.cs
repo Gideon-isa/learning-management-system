@@ -38,6 +38,13 @@ namespace Lms.SharedKernel.Domain
 
         public static bool operator ==(Entity<Tkey>? left, Entity<Tkey>? right)
         {
+            if (ReferenceEquals(left, right)) 
+                return true;
+
+            if (left is null || right is null)
+                return false;
+
+
             return left.Equals(right);
         }
 

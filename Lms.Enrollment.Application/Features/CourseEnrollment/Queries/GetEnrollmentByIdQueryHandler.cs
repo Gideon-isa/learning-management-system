@@ -5,11 +5,11 @@ using Mapster;
 
 namespace Lms.Enrollment.Application.Features.CourseEnrollment.Queries
 {
-    public class GetEnrollmentQueryHandler : ICustomRequestHandler<GetEnrollmentByIdQuery, IResponseWrapper<CourseEnrollmentResponse>>
+    public class GetEnrollmentByIdQueryHandler : ICustomRequestHandler<GetEnrollmentByIdQuery, IResponseWrapper<CourseEnrollmentResponse>>
     {
         private readonly ICourseEnrollmentRespository _courseEnrollmentRespository;
 
-        public GetEnrollmentQueryHandler(ICourseEnrollmentRespository courseEnrollmentRespository)
+        public GetEnrollmentByIdQueryHandler(ICourseEnrollmentRespository courseEnrollmentRespository)
         {
             _courseEnrollmentRespository = courseEnrollmentRespository;
         }
