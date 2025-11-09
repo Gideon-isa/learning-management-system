@@ -22,7 +22,8 @@ namespace Lms.Identity.Application.Events.Student
                 domainEvent.Id,
                 domainEvent.FirstName,
                 domainEvent.LastName,
-                domainEvent.UserName);
+                domainEvent.UserName,
+                domainEvent.StudentCode);
 
             // Saving to the Outbox Message
             await _publisher.PublishAsync(integrationEvent, cancellationToken);

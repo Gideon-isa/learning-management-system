@@ -13,6 +13,7 @@ namespace Lms.Identity.Infrastructure.Identity.Models
         public string? LastName { get; set; } = default!;
         public string? MiddleName { get; set; }
         public string? DisplayName { get; set; }
+        public string? StudentCode { get; set; }
 
         // Profile and Contact Information
         public string? ProfileImageUrl { get; set; }
