@@ -1,4 +1,5 @@
 ﻿using Lms.Enrollment.Domain.Enums;
+using Lms.Enrollment.Domain.Events;
 using Lms.Enrollment.Domain.ValueObjects;
 using Lms.SharedKernel.Domain;
 
@@ -55,6 +56,15 @@ namespace Lms.Enrollment.Domain.Entities
 
             studentEnrollment.Withdraw();
             _studentEnrollments.Remove(studentEnrollment);
+        }
+
+        public void Publish(List<Student> students)
+        {
+            var enrollEvents = students.Select(s => new EnrollStudentEvent(s.StudentCode, CourseId));
+            foreach (var enrollEvent in enrollEvents)
+            { 
+                AddDomainEvent(enrollEvent);   
+            }
         }
     }
 }
