@@ -36,7 +36,8 @@ namespace Lms.Identity.Infrastructure.DI
             .AddScoped<MediatRIntegrationEventPublisher>()
             .AddScoped<IUserService, UserService>()
             .AddScoped<IIdentityUnitOfWork, IdentityUnitOfWork>()
-            .AddScoped<IIdentityIntegrationEventPublisher, IdentityOutboxService>();
+            .AddScoped<IIdentityIntegrationEventPublisher, IdentityOutboxService>()
+            .AddScoped<IStudentCodeGenerator, StudentCodeGenerator>();
 
             //.AddCustomMediator(typeof(DependencyInjection).Assembly);
 

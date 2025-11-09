@@ -1,4 +1,5 @@
-﻿using Lms.Identity.Application.Events.Student;
+﻿using Lms.Identity.Application.Abstractions;
+using Lms.Identity.Application.Events.Student;
 using Lms.Identity.Application.Exceptions;
 using Lms.Identity.Application.Features.Identity.Users;
 using Lms.Identity.Application.Features.Identity.Users.Commands.AddUser;
@@ -28,15 +29,17 @@ namespace Lms.Identity.Infrastructure.Services
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly RoleManager<ApplicationRole> _roleManager;
         private readonly IDomainEventDispatcher _domainEventDispatcher;
+        private readonly IStudentCodeGenerator _studentCodeGenerator;
         private readonly AppOptions _appOptions;
 
-        public UserService(UserManager<ApplicationUser> userManager, IOptions<AppOptions> appOptions, 
-            RoleManager<ApplicationRole> roleManager, IDomainEventDispatcher domainEventDispatcher)
+        public UserService(UserManager<ApplicationUser> userManager, IOptions<AppOptions> appOptions,
+            RoleManager<ApplicationRole> roleManager, IDomainEventDispatcher domainEventDispatcher, IStudentCodeGenerator studentCodeGenerator)
         {
             _userManager = userManager;
             _appOptions = appOptions.Value;
             _roleManager = roleManager;
             _domainEventDispatcher = domainEventDispatcher;
+            _studentCodeGenerator = studentCodeGenerator;
         }
 
         /// <summary>
@@ -351,6 +354,9 @@ namespace Lms.Identity.Infrastructure.Services
             //if student publish to the Enrollment Module
             if (command.Role == UserRole.Student)
             {
+                // Student Code Generation
+                user.StudentCode = _studentCodeGenerator.GenerateStudentCode();
+
                 var newStudentEvent = user.Adapt<StudentEvent>();
                 studentEvent.AddDomainEvent(newStudentEvent);
                 await _domainEventDispatcher.DispatchAsync(studentEvent.DomainEvents, token);
@@ -358,6 +364,7 @@ namespace Lms.Identity.Infrastructure.Services
                 studentEvent.ClearDomainEvents();
 
                 // logging
+
             }
 
             await _userManager.UpdateAsync(user);
