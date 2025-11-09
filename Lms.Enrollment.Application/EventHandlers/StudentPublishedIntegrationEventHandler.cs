@@ -23,10 +23,8 @@ namespace Lms.Enrollment.Application.EventHandlers
             var studentEvent = notification.IntegrationEvent;
 
             var newStudent = Student.Create(studentEvent.Id, studentEvent.FirstName, studentEvent.LastName, studentEvent.Username, studentEvent.StudentCode);
-
-            await _studentRepository.CreateAsync(newStudent, cancellationToken);
-            
-            await _unitOfWork.SaveChangesAsync();
+            await _studentRepository.CreateAsync(newStudent, cancellationToken);   
+            await _unitOfWork.SaveChangesAsync(cancellationToken);
         }
     }
 }

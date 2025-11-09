@@ -1,6 +1,7 @@
 ﻿using Lms.Enrollment.Application.Abstractions;
 using Lms.Enrollment.Infrastructure.DataContext;
 using Lms.SharedKernel.Application;
+using Lms.SharedKernel.Domain;
 
 namespace Lms.Enrollment.Infrastructure.Persistence
 {
@@ -19,7 +20,17 @@ namespace Lms.Enrollment.Infrastructure.Persistence
 
         public async Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
         {
-            return await _enrollmentDbContext.SaveChangesAsync(cancellationToken);
+            var result =  await _enrollmentDbContext.SaveChangesAsync(cancellationToken);
+
+            var domainEvent = _enrollmentDbContext.ChangeTracker.Entries<AggregateRoot<Guid>>().SelectMany(e => e.Entity.DomainEvents).ToList();
+
+            _enrollmentDbContext.ChangeTracker.Entries<AggregateRoot<Guid>>().ToList().ForEach(e => e.Entity.ClearDomainEvents());
+
+            if (domainEvent.Count != 0)
+            { 
+                await _domainEventDispatcher.DispatchAsync(domainEvent, cancellationToken);
+            }
+            return result;
         }
     }
 }

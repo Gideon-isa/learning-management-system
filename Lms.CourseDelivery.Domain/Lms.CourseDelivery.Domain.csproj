@@ -10,9 +10,4 @@
     <ProjectReference Include="..\Lms.SharedKernel\Lms.SharedKernel.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Events\" />
-    <Folder Include="Enums\" />
-  </ItemGroup>
-
 </Project>
