@@ -31,7 +31,7 @@ namespace Lms.CourseManagement.Infrastructure.Persistence
                 .ForEach(e => e.Entity.ClearDomainEvents());
 
             // 4. Dispatch domain event (internal events via Dispatcher)
-            if (domainEvents.Any())
+            if (domainEvents.Count != 0)
             {
                 await _domainEventDispatcher.DispatchAsync(domainEvents, cancellationToken);
             }
