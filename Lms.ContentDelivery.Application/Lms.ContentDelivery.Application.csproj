@@ -7,11 +7,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Lms.SharedKernel\Lms.SharedKernel.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Enums\" />
+    <ProjectReference Include="..\Lms.ContentDelivery.Domain\Lms.ContentDelivery.Domain.csproj" />
+    <ProjectReference Include="..\Lms.Shared.Application\Lms.Shared.Application.csproj" />
   </ItemGroup>
 
 </Project>

@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Lms.Enrollment.Infrastructure.Migrations
 {
     /// <inheritdoc />
-    public partial class updateStudentCode : Migration
+    public partial class initialMigration : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)

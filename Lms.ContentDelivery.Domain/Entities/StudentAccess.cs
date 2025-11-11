@@ -1,6 +1,6 @@
 ﻿using Lms.SharedKernel.Domain;
 
-namespace Lms.CourseDelivery.Domain.Entities
+namespace Lms.ContentDelivery.Domain.Entities
 {
     public class StudentAccess : AggregateRoot<Guid>
     {

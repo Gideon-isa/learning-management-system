@@ -1,4 +1,5 @@
-﻿using Lms.SharedKernel.Domain;
+﻿using Lms.CourseManagement.Domain.Events;
+using Lms.SharedKernel.Domain;
 
 namespace Lms.CourseManagement.Domain.Entities
 {
@@ -74,8 +75,8 @@ namespace Lms.CourseManagement.Domain.Entities
             PublishedOn = DateTime.UtcNow;
 
             // Add a kernel-domain event to the list of events
-            // This adds the event to be published internal CoursePublishEvent is of type IDomain
-            AddDomainEvent(new CoursePublishedEvent(Id, CourseTitle, InstructorId, PublishedOn.Value));
+            // This adds the event to be published internal CoursePublishEvent is of type IDomain\
+            AddDomainEvent(new CoursePublishedEvent(Id, CourseTitle, InstructorId, PublishedOn.Value, (object[])Modules));
         }
 
         public void Archive()
