@@ -7,6 +7,12 @@ using Lms.Shared.IntegrationEvents.Identity;
 
 namespace Lms.CourseManagement.Application.EventHandlers
 {
+    /// <summary>
+    /// Handles the integration event for when a new instructor is published.
+    /// </summary>
+    /// <remarks>This handler processes the <see cref="CreateInstructorPublishedIntegrationEvent"/> by
+    /// creating a new instructor entity and saving it to the repository. It ensures that the new instructor's details
+    /// are persisted in the course management system. This is so becuase the Instructor responsibilities belongs to the Course Management</remarks>
     public class NewInstructorPublishedIntegrationEventHandler : ICustomNotificationHandler<IntegrationEventNotification<CreateInstructorPublishedIntegrationEvent>>
     {
         private readonly IInstructorRepository _instructorRepository;

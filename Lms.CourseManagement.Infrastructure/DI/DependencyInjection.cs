@@ -1,7 +1,6 @@
 ﻿using Lms.CourseManagement.Application.Abstractions;
 using Lms.CourseManagement.Domain.Repositories;
 using Lms.CourseManagement.Infrastructure.DbContex;
-using Lms.CourseManagement.Infrastructure.Integration;
 using Lms.CourseManagement.Infrastructure.Outbox;
 using Lms.CourseManagement.Infrastructure.Persistence;
 using Lms.Shared.IntegrationEvents.Integration;

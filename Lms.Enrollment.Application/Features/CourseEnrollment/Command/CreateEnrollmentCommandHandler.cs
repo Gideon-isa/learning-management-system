@@ -49,6 +49,7 @@ namespace Lms.Enrollment.Application.Features.CourseEnrollment.Command
 
             var enrollmentResult = courseEnrollment.EnrollStudent(students);
 
+
             await _unitOfWork.SaveChangesAsync(cancellationToken);
 
             var courseEnrollmentDto = courseEnrollment.Adapt<CourseEnrollmentResponse>();
