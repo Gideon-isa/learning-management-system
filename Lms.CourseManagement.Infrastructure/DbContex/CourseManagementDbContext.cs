@@ -41,7 +41,7 @@ namespace Lms.CourseManagement.Infrastructure.DbContex
         public DbSet<CourseModule> CourseModules { get; set; }
         public DbSet<Lesson> Lessons { get; set; }
         public DbSet<LessonTag> LessonTags { get; set; }
-        public DbSet<OutboxMessage> OutboxMessages => Set<OutboxMessage>();
+        public DbSet<CourseOutboxMessage> CourseOutboxMessages => Set<CourseOutboxMessage>();
 
         public DbSet<Instructor> Instructors  => Set<Instructor>();
     }

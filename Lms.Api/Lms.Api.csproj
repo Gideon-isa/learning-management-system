@@ -19,6 +19,8 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Lms.Assessment.Application\Lms.Assessment.Application.csproj" />
+    <ProjectReference Include="..\Lms.CourseDelivery.Application\Lms.CourseDelivery.Application.csproj" />
+    <ProjectReference Include="..\Lms.CourseDelivery.Infrastructure\Lms.CourseDelivery.Infrastructure.csproj" />
     <ProjectReference Include="..\Lms.CourseManagement.Application\Lms.CourseManagement.Application.csproj" />
     <ProjectReference Include="..\Lms.CourseManagement.Infrastructure\Lms.CourseManagement.Infrastructure.csproj" />
     <ProjectReference Include="..\Lms.Enrollment.Application\Lms.Enrollment.Application.csproj" />

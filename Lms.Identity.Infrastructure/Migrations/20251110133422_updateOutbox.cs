@@ -2,10 +2,10 @@
 
 #nullable disable
 
-namespace Lms.CourseManagement.Infrastructure.Migrations
+namespace Lms.Identity.Infrastructure.Migrations
 {
     /// <inheritdoc />
-    public partial class addUserRole : Migration
+    public partial class updateOutbox : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)

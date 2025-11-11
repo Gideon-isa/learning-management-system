@@ -14,8 +14,8 @@ namespace Lms.CourseManagement.Infrastructure.Outbox
         }
         public async Task PublishAsync<TIntegrationEvent>(TIntegrationEvent integrationEvent, CancellationToken cancellationToken = default) where TIntegrationEvent : class
         {
-            var outboxMessage = new OutboxMessage(integrationEvent);
-            await _coursedbContext.OutboxMessages.AddAsync(outboxMessage);
+            var outboxMessage = new CourseOutboxMessage(integrationEvent);
+            await _coursedbContext.CourseOutboxMessages.AddAsync(outboxMessage);
             await _coursedbContext.SaveChangesAsync(cancellationToken); 
         }
     }

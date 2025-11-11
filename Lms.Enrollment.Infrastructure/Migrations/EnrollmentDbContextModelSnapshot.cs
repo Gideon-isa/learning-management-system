@@ -82,6 +82,42 @@ namespace Lms.Enrollment.Infrastructure.Migrations
                     b.ToTable("CourseEnrollments");
                 });
 
+            modelBuilder.Entity("Lms.Enrollment.Domain.Entities.EnrollmentOutboxMessage", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Content")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Error")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime?>("NextRetryOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("OccuredOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("ProcessedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("RetryCount")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Type")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("EnrollmentOutboxMessages");
+                });
+
             modelBuilder.Entity("Lms.Enrollment.Domain.Entities.Student", b =>
                 {
                     b.Property<Guid>("Id")

@@ -26,7 +26,6 @@
     <Folder Include="Abstractions\" />
     <Folder Include="DI\DataSeeder\" />
     <Folder Include="DI\NewFolder\" />
-    <Folder Include="Migrations\" />
     <Folder Include="Services\" />
   </ItemGroup>
 

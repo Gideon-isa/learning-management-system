@@ -2,10 +2,10 @@
 
 #nullable disable
 
-namespace Lms.CourseManagement.Infrastructure.Migrations
+namespace Lms.Identity.Infrastructure.Migrations
 {
     /// <inheritdoc />
-    public partial class addedInstructor : Migration
+    public partial class addedStudentCode : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)

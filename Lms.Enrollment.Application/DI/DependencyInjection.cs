@@ -1,4 +1,5 @@
-﻿using Lms.Enrollment.Application.EventHandlers;
+﻿using Lms.Enrollment.Application.Abstractions;
+using Lms.Enrollment.Application.EventHandlers;
 using Lms.Enrollment.Application.Mapping;
 using Lms.Enrollment.Domain.Services;
 using Lms.Shared.Application;
@@ -10,7 +11,7 @@ using System.Reflection;
 
 namespace Lms.Enrollment.Application.DI
 {
-    public static class NotificationServices
+    public static class DependencyInjection
     {
         public static IServiceCollection AddEnrollmentApplication(this IServiceCollection services)
         {
@@ -25,6 +26,7 @@ namespace Lms.Enrollment.Application.DI
 
             // 2️⃣ Register the MiniMediator and supporting types (if not already in Shared.Application)
             services.AddScoped<ICustomMediator, MiniMediator>();
+            
             //services.AddScoped<IDomainEnrollmentService, EnrollmentService>();
             //services.AddCustomMediator(typeof(CoursePublishedIntegrationEventHandler).Assembly);
 
