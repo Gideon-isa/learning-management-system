@@ -29,7 +29,7 @@ namespace Lms.Enrollment.Domain.Entities
             //    throw new InvalidOperationException("student already enrolled in this course");
 
             // checking for duplicate ids
-            var studentIds = _studentEnrollments.Select((st, index) => st.StudentId).ToList();
+            //var studentIds = _studentEnrollments.Select((st, index) => st.StudentId).ToList();
 
             var enrolled = new List<StudentSummary>();
             var skipped = new List<StudentSummary>();
@@ -43,9 +43,11 @@ namespace Lms.Enrollment.Domain.Entities
                 }
                 _studentEnrollments.Add(StudentEnrollment.Create(student.Id, student.FirstName));
                 enrolled.Add(new StudentSummary(student.Id, student.FirstName));
+
+                // adding to the Domain Event
+                AddDomainEvent(new EnrollStudentEvent(student.StudentCode, CourseId));
             }
             return new EnrollmentResult(enrolled, skipped);
-
         }
 
         public void WithdrawStudent(Guid studentId)
@@ -58,13 +60,13 @@ namespace Lms.Enrollment.Domain.Entities
             _studentEnrollments.Remove(studentEnrollment);
         }
 
-        public void Publish(List<Student> students)
-        {
-            var enrollEvents = students.Select(s => new EnrollStudentEvent(s.StudentCode, CourseId));
-            foreach (var enrollEvent in enrollEvents)
-            { 
-                AddDomainEvent(enrollEvent);   
-            }
-        }
+        //public void Publish(List<Student> students)
+        //{
+        //    var enrollEvents = students.Select(s => new EnrollStudentEvent(s.StudentCode, CourseId));
+        //    foreach (var enrollEvent in enrollEvents)
+        //    { 
+        //        AddDomainEvent(enrollEvent);   
+        //    }
+        //}
     }
 }

@@ -6,11 +6,30 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Lms.CourseManagement.Infrastructure.Migrations
 {
     /// <inheritdoc />
-    public partial class secondInit : Migration
+    public partial class updateOutbox : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.CreateTable(
+                name: "CourseOutboxMessages",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Type = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Content = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    ProcessedOn = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    OccuredOn = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    Error = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    RetryCount = table.Column<int>(type: "int", nullable: false),
+                    NextRetryOn = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    IsDeleted = table.Column<bool>(type: "bit", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_CourseOutboxMessages", x => x.Id);
+                });
+
             migrationBuilder.CreateTable(
                 name: "Courses",
                 columns: table => new
@@ -31,6 +50,26 @@ namespace Lms.CourseManagement.Infrastructure.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Instructors",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    FirstName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    LastName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    ProfileImageUrl = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    DisplayName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Bio = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Department = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Institution = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    StaffId = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    IsDeleted = table.Column<bool>(type: "bit", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Instructors", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "LessonTags",
                 columns: table => new
                 {
@@ -41,25 +80,6 @@ namespace Lms.CourseManagement.Infrastructure.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_LessonTags", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "OutboxMessages",
-                columns: table => new
-                {
-                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    Type = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Content = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    ProcessedOn = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    OccuredOn = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    Error = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    RetryCount = table.Column<int>(type: "int", nullable: false),
-                    NextRetryOn = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    IsDeleted = table.Column<bool>(type: "bit", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_OutboxMessages", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -213,6 +233,12 @@ namespace Lms.CourseManagement.Infrastructure.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
+                name: "CourseOutboxMessages");
+
+            migrationBuilder.DropTable(
+                name: "Instructors");
+
+            migrationBuilder.DropTable(
                 name: "LessonImages");
 
             migrationBuilder.DropTable(
@@ -226,9 +252,6 @@ namespace Lms.CourseManagement.Infrastructure.Migrations
 
             migrationBuilder.DropTable(
                 name: "LessonVideo");
-
-            migrationBuilder.DropTable(
-                name: "OutboxMessages");
 
             migrationBuilder.DropTable(
                 name: "Lessons");

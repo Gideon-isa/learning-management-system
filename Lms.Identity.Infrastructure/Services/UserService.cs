@@ -349,6 +349,8 @@ namespace Lms.Identity.Infrastructure.Services
             user.IsProfileCompleted = true; // Need to revisit this 
             var studentEvent = new StudentRequest();
 
+            command.Id = IsEmailAsync(command.Id, token) ? user.Id : command.Id;
+            
             command.Adapt(user); // updating the extisting tracked user
 
             //if student publish to the Enrollment Module

@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Lms.Enrollment.Infrastructure.Migrations
 {
     [DbContext(typeof(EnrollmentDbContext))]
-    [Migration("20251107200441_updateCourseTitle")]
-    partial class updateCourseTitle
+    [Migration("20251110134510_updateStudentCode")]
+    partial class updateStudentCode
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -85,6 +85,42 @@ namespace Lms.Enrollment.Infrastructure.Migrations
                     b.ToTable("CourseEnrollments");
                 });
 
+            modelBuilder.Entity("Lms.Enrollment.Domain.Entities.EnrollmentOutboxMessage", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Content")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Error")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime?>("NextRetryOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("OccuredOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("ProcessedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("RetryCount")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Type")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("EnrollmentOutboxMessages");
+                });
+
             modelBuilder.Entity("Lms.Enrollment.Domain.Entities.Student", b =>
                 {
                     b.Property<Guid>("Id")
@@ -102,6 +138,10 @@ namespace Lms.Enrollment.Infrastructure.Migrations
                         .HasColumnType("bit");
 
                     b.Property<string>("LastName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("StudentCode")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 

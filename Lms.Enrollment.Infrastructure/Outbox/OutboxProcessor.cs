@@ -1,11 +1,11 @@
-﻿using Lms.CourseManagement.Infrastructure.DbContex;
+﻿using Lms.Enrollment.Infrastructure.DataContext;
 using Lms.Shared.IntegrationEvents.Integration;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using System.Text.Json;
 
-namespace Lms.CourseManagement.Infrastructure.Outbox
+namespace Lms.Enrollment.Infrastructure.Outbox
 {
     public class OutboxProcessor : BackgroundService
     {
@@ -24,13 +24,13 @@ namespace Lms.CourseManagement.Infrastructure.Outbox
                 try
                 {
                     using var scope = _serviceProvider.CreateAsyncScope();
-                    var dbContext = scope.ServiceProvider.GetRequiredService<CourseManagementDbContext>();
+                    var dbContext = scope.ServiceProvider.GetRequiredService<EnrollmentDbContext>();
                     //var outbox = scope.ServiceProvider.GetRequiredService<IIntegrationEventPublisher>();
                     var publish = scope.ServiceProvider.GetRequiredService<MediatRIntegrationEventPublisher>();
 
                     // Pick pending or failed events ready for retry
                     var now = DateTime.UtcNow;
-                    var pendingMessages = await dbContext.CourseOutboxMessages
+                    var pendingMessages = await dbContext.EnrollmentOutboxMessages
                         .Where(m =>
                             (m.ProcessedOn == null || m.Error != null) &&
                             (m.NextRetryOn == null || m.NextRetryOn <= now))
@@ -44,7 +44,7 @@ namespace Lms.CourseManagement.Infrastructure.Outbox
                         try
                         {
                             var eventType = Type.GetType(message.Type)!;
-                            if(eventType is null)
+                            if (eventType is null)
                             {
                                 // Log thr error 
                                 continue;
@@ -64,7 +64,7 @@ namespace Lms.CourseManagement.Infrastructure.Outbox
                         {
                             message.RetryCount++;
                             message.Error = ex.Message;
-                            message.NextRetryOn = DateTime.UtcNow.Add(RetryDelay);  
+                            message.NextRetryOn = DateTime.UtcNow.Add(RetryDelay);
                         }
                     }
 
@@ -76,10 +76,9 @@ namespace Lms.CourseManagement.Infrastructure.Outbox
                     throw;
                 }
 
-                await Task.Delay(TimeSpan.FromSeconds(120), stoppingToken);
-            
+                await Task.Delay(TimeSpan.FromSeconds(200), stoppingToken);
+
             }
-            
         }
     }
 }
