@@ -7,7 +7,7 @@ namespace Lms.CourseManagement.Application.Features.Tags.Commands
     {
         public CreateLessonTagCommandValidator()
         {
-            RuleFor(x => x.TagName)
+            RuleFor(x => x.Name)
                 .NotEmpty().WithMessage("Tag name is required.")
                 .MaximumLength(100).WithMessage("Tag name must not exceed 100 characters.");
         }

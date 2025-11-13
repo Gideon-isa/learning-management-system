@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Lms.CourseManagement.Infrastructure.Migrations
 {
     [DbContext(typeof(CourseManagementDbContext))]
-    [Migration("20251110133229_updateOutbox")]
-    partial class updateOutbox
+    [Migration("20251112162047_InitialMigration")]
+    partial class InitialMigration
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

@@ -57,8 +57,6 @@ namespace Lms.CourseManagement.Infrastructure.Configuration
                 vid.Property(img => img.Title).IsRequired().HasMaxLength(200);
                 vid.Property(img => img.Path).IsRequired().HasMaxLength(100);
             });
-
-
         }
     }
 }

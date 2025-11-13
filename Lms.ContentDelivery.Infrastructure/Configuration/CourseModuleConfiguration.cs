@@ -1,12 +1,12 @@
-﻿using Lms.CourseManagement.Domain.Entities;
+﻿using Lms.ContentDelivery.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace Lms.CourseManagement.Infrastructure.Configuration
+namespace Lms.ContentDelivery.Infrastructure.Configuration
 {
-    public class CourseModuleConfiguration : IEntityTypeConfiguration<CourseModule>
+    public class CourseModuleConfiguration : IEntityTypeConfiguration<CourseModuleContent>
     {
-        public void Configure(EntityTypeBuilder<CourseModule> builder)
+        public void Configure(EntityTypeBuilder<CourseModuleContent> builder)
         {
             builder.HasKey(cm => cm.Id);
 
@@ -14,7 +14,8 @@ namespace Lms.CourseManagement.Infrastructure.Configuration
                 .HasDefaultValueSql("NEWID()")
                 .ValueGeneratedOnAdd();
 
-            builder.HasMany<Lesson>(cm => cm.Lessons)
+
+            builder.HasMany<LessonContent>(cm => cm.Lessons)
                 .WithOne()
                 .HasForeignKey("ModuleId")
                 .OnDelete(DeleteBehavior.Cascade); // shadow FK
