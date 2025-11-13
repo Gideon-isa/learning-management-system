@@ -5,51 +5,48 @@ namespace Lms.ContentDelivery.Domain.Entities
     public class StudentAccess : AggregateRoot<Guid>
     {
         public string StudentCode { get; private set; }
-        private readonly List<Guid> _courseIds = [];
-        public IReadOnlyCollection<Guid> CourseIds => _courseIds.AsReadOnly();
+        public Guid CourseId { get; private set; }
+        public DateTime GrantedAt { get; private set; }
+        public bool IsRevoked { get; private set; }
+        public DateTime? RevokedAt { get; private set; }
 
 
         private StudentAccess() { } // EF Core
 
-        private StudentAccess(string studentCode)
+        private StudentAccess(string studentCode, Guid courseId)
         {
             StudentCode = studentCode;
+            CourseId = courseId;
+            GrantedAt = DateTime.UtcNow;
+            IsRevoked = false;
         }
 
-        public static StudentAccess Create(string studentCode, IEnumerable<Guid> courseIds)
+        public static StudentAccess Create(string studentCode, Guid courseId)
         {
             if (string.IsNullOrEmpty(studentCode))
                 throw new Exception("Student Code can not be empty"); // TODO: Use Custom Error
-
-            var newStudentAccess = new StudentAccess(studentCode);
-            newStudentAccess.AddCourse(courseIds);
-            return newStudentAccess;
+         
+            return new StudentAccess(studentCode, courseId);
         }
 
-        public void AddCourse(IEnumerable<Guid> courseIds)
-        { 
-            var courseIdSet = new HashSet<Guid>(courseIds);
 
-            foreach (var courseId in courseIds)
-            {
-                if (courseIdSet.Add(courseId))
-                {
-                    _courseIds.Add(courseId);
-                }
-            }
-        }
-
-        public void GrantAccess(Guid courseId)
+        public void GrantAccess()
         {
-            if (!_courseIds.Contains(courseId))
+            if (IsRevoked)
             {
-                _courseIds.Add(courseId);
+                IsRevoked = false;
+                RevokedAt = null;
+                GrantedAt = DateTime.UtcNow;
             }
         }
 
-        public void RevokeAccess(Guid courseId) 
-        { 
-            _courseIds.Remove(courseId);
+        public void RevokeAccess() 
+        {
+            if (!IsRevoked)
+            { 
+                IsRevoked = true;
+                RevokedAt = DateTime.UtcNow;
+            }
         }
     }
 }

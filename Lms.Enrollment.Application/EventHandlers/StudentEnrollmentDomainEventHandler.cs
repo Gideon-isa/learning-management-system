@@ -18,7 +18,7 @@ namespace Lms.Enrollment.Application.EventHandlers
         public async Task Handle(DomainEventNotification<EnrollStudentEvent> notification, CancellationToken cancellationToken)
         {
             var domainEvent = notification.DomainEvent;
-            var integrationEvent = new EnrollmentPublishIntegrationEvent(domainEvent.StudentCode);
+            var integrationEvent = new EnrollmentPublishIntegrationEvent(domainEvent.StudentCode, domainEvent.courseId);
 
             await _enrollmentIntegrationEventPublisher.PublishAsync(integrationEvent, cancellationToken);
         }
