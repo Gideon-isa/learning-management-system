@@ -49,35 +49,6 @@ namespace Lms.ContentDelivery.Application.EventHandlers
                 course.AddModuleToCourse(newCourseModule);
             }
 
-            //var courseEvent = notification.IntegrationEvent;
-                
-            //var course = CourseContent.Create(courseEvent.CourseId, courseEvent.CourseTitle, courseEvent.CourseCode,courseEvent .Category, courseEvent.InstructorId);
-
-            ////courseEvent.ModuleEvent
-            //var courseModules = courseEvent.ModuleEvent
-            //    .Select(mod => CourseModuleContent.Create(mod.Title, mod.Description));
-
-            //var lessons = courseEvent.ModuleEvent.SelectMany(m => m.Lessons);
-            
-            //// For each courseModule
-            //foreach (var module in courseModules)
-            //{
-            //    // Each courseModule contains list of lessons
-            //    foreach (var lesson in lessons)
-            //    {
-            //        // list of videos contained in a single lesson
-            //        var lessonVideos = lesson.Videos.ToList();
-
-            //        // each lesson contains list of videos
-            //        var videos = lessonVideos.Select(v => new LessonVideo(v.Path, v.Title, "thumbnail", v.Description)).ToList();
-            //        var newLesson = LessonContent.Create(lesson.Title, lesson.Description, lesson.Duration, videos);
-
-            //        module.AddLessonToModule(newLesson);
-            //    }
-
-            //    course.AddModuleToCourse(module);
-            //}
-
             await _courseContentRepository.AddAsync(course, cancellationToken);
             await _contentDeliveryUnitOfWork.SaveChangesAsync(cancellationToken);
         }
