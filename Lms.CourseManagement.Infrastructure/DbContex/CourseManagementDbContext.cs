@@ -21,6 +21,9 @@ namespace Lms.CourseManagement.Infrastructure.DbContex
             // Apply all configurations from the current assembly
             modelBuilder.ApplyConfigurationsFromAssembly(typeof(CourseManagementDbContext).Assembly);
 
+            // This configures EF to populate the backing field instead of the Public field
+            // e.g "_modules" in Course Entity should be used to pupulate and not "Modules".
+            // Since Module is a IReadOnlyCollection.
             modelBuilder.Entity<Course>().Navigation(c => c.Modules)
                 .UsePropertyAccessMode(PropertyAccessMode.Field);
 

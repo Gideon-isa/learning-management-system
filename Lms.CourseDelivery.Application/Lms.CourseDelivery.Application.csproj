@@ -7,10 +7,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Lms.CourseDelivery.Domain\Lms.CourseDelivery.Domain.csproj" />
+    <ProjectReference Include="..\Lms.CourseDelivery.Domain\Lms.Delivery.Domain.csproj" />
     <ProjectReference Include="..\Lms.Shared.Application\Lms.Shared.Application.csproj" />
-    <ProjectReference Include="..\Lms.Shared.IntegrationEvents\Lms.Shared.IntegrationEvents.csproj" />
-    <ProjectReference Include="..\Lms.SharedKernel\Lms.SharedKernel.csproj" />
   </ItemGroup>
 
 </Project>
