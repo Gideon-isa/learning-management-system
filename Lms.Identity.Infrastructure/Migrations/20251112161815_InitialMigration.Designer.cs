@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Lms.Identity.Infrastructure.Migrations
 {
     [DbContext(typeof(UserIdentityDbContext))]
-    [Migration("20251111231427_initialMigration")]
-    partial class initialMigration
+    [Migration("20251112161815_InitialMigration")]
+    partial class InitialMigration
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

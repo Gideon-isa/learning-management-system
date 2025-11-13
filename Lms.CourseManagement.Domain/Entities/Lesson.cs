@@ -11,7 +11,7 @@ namespace Lms.CourseManagement.Domain.Entities
         private readonly List<LessonTagReference> _tags = [];
         
 
-        private Lesson() { }// EF core 
+        private Lesson() { } // EF core 
 
         /// <summary>
         /// 

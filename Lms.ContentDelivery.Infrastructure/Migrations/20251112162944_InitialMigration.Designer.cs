@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Lms.ContentDelivery.Infrastructure.Migrations
 {
     [DbContext(typeof(CourseContentDbContext))]
-    [Migration("20251111230337_initialMigration")]
-    partial class initialMigration
+    [Migration("20251112162944_InitialMigration")]
+    partial class InitialMigration
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -47,10 +47,6 @@ namespace Lms.ContentDelivery.Infrastructure.Migrations
                         .IsRequired()
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
-
-                    b.Property<string>("Description")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<Guid>("InstructorId")
                         .HasColumnType("uniqueidentifier");
@@ -118,6 +114,9 @@ namespace Lms.ContentDelivery.Infrastructure.Migrations
 
                     b.Property<Guid?>("ModuleId")
                         .HasColumnType("uniqueidentifier");
+
+                    b.Property<int>("Order")
+                        .HasColumnType("int");
 
                     b.Property<string>("Title")
                         .IsRequired()

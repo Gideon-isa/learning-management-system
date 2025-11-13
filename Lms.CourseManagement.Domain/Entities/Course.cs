@@ -76,7 +76,7 @@ namespace Lms.CourseManagement.Domain.Entities
 
             // Add a kernel-domain event to the list of events
             // This adds the event to be published internal CoursePublishEvent is of type IDomain\
-            AddDomainEvent(new CoursePublishedEvent(Id, CourseTitle, InstructorId, PublishedOn.Value, (object[])Modules));
+            AddDomainEvent(new CoursePublishedEvent(Id, CourseTitle, CourseCode, Category ,InstructorId, PublishedOn.Value, [..Modules]));
         }
 
         public void Archive()

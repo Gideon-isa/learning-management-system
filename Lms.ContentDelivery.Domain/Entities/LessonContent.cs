@@ -7,10 +7,13 @@ namespace Lms.ContentDelivery.Domain.Entities
     {
         public string Title { get; set; }
         public TimeSpan Duration { get; set; }
+        public int Order {  get; set; }
         public string Description { get; set; }
         public readonly List<LessonVideo> _videos = [];
 
         public IReadOnlyCollection<LessonVideo> Videos => _videos.AsReadOnly();
+
+        public void AssignOrder(int order) => Order = order;
 
         private LessonContent() { } // EF Core
         private LessonContent(string title, string description, TimeSpan courseDuration)
@@ -20,15 +23,11 @@ namespace Lms.ContentDelivery.Domain.Entities
             Duration = courseDuration;
         }
 
-
         public static LessonContent Create(
             string lessonTitle,
             string lessonDescription,
-            TimeSpan lessonCourseDuration,
-            string videoPath,
-            string videoTitle,
-            string videoThumbNail,
-            string videoDescription)
+            TimeSpan lessonCourseDuration, 
+            List<LessonVideo> videos)
         {
             if (string.IsNullOrWhiteSpace(lessonTitle))
                 throw new ArgumentException("Title is required. ", nameof(lessonTitle));
@@ -37,7 +36,10 @@ namespace Lms.ContentDelivery.Domain.Entities
                 throw new Exception("Lesson duration must be positive.");
 
             var newLesson = new LessonContent(lessonTitle, lessonDescription, lessonCourseDuration);
-            newLesson.AddVideo(videoPath, videoTitle, videoThumbNail, videoDescription);
+            newLesson.AddVideos(videos);
+
+            //newLesson.AddVideo(videoPath, videoTitle, videoThumbNail, videoDescription);
+
             //newLesson.AddImage(lessonImages);
             //newLesson.AddTags(lessonTags);
 
@@ -49,6 +51,11 @@ namespace Lms.ContentDelivery.Domain.Entities
         {
             _videos.Add(new LessonVideo(path, title, thumbNail, description));
             //UpdatedAt = DateTime.UtcNow;
+        }
+
+        private void AddVideos(List<LessonVideo> videos)
+        {
+            videos.ForEach(_videos.Add);
         }
     }
 }

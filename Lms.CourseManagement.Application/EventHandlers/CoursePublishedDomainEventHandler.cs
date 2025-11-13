@@ -23,26 +23,28 @@ namespace Lms.CourseManagement.Application.EventHandlers
             var domainEvent = notification.DomainEvent;
 
             // Fix: domainEvent.Modules is object[], so cast each element to PublishedModuleDto
-            var moduleDtos = (domainEvent.Modules)
-                .OfType<PublishedModuleDto>() // safely filters CourseModule objects
+            var moduleDtos = domainEvent.Modules
+                // safely filters CourseModule objects
                 .Select(module => new PublishedModuleDto(
-                    module.ModuleId,
+                    module.Id,
                     module.Title,
                     module.Description,
                     module.Order,
-                    module.Lessons.Select(lesson => new PublishedLessonDto(
-                        lesson.LessonId,
+                    [..module.Lessons.Select(lesson => new PublishedLessonDto(
+                        lesson.Id,
                         lesson.Title,
                         lesson.Description,
                         lesson.Duration,
-                        lesson.LessonImages.Select(img => new PublishedLessonImageDto(img.Id, img.FileName, img.Path, img.Caption)).ToList(),
-                        lesson.LessonTags.Select(tag => new PublishedLessonTagDto(tag.TagId, tag.TagName)).ToList(),
-                        lesson.Videos.Select(vid => new PublishedLessonVideoDto(vid.Title, vid.Title, vid.ThumbNail, vid.Description)).ToList()
-                        )).ToList()));
+                        [..lesson.Images.Select(img => new PublishedLessonImageDto(img.FileName, img.Path, img.Caption)) ],
+                        [.. lesson.Tags.Select(tag => new PublishedLessonTagDto(tag.TagId, tag.TagName))],
+                        [.. lesson.Videos.Select(vid => new PublishedLessonVideoDto(vid.Path, vid.Title, vid.Thumbnail, vid.Description))]
+                        )) ]));
 
             var integrationEvent = new CoursePublishedIntegrationEvent(
                 domainEvent.CourseId,
                 domainEvent.CourseTitle,
+                domainEvent.CourseCode,
+                domainEvent.Category,
                 domainEvent.InstructorId,
                 domainEvent.PublishedOn,
                 moduleDtos // Pass the list of PublishedModuleDto to the integration event

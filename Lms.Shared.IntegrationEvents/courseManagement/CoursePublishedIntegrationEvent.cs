@@ -2,7 +2,9 @@
 {
     public sealed record CoursePublishedIntegrationEvent(
         Guid CourseId, 
-        string CourseTitle, 
+        string CourseTitle,
+        string CourseCode,
+        string Category,
         Guid InstructorId, 
         DateTime PublishedOn,
         IEnumerable<PublishedModuleDto> ModuleEvent);
@@ -25,7 +27,6 @@
         );
 
     public sealed record PublishedLessonImageDto(
-        Guid Id,
         string FileName,
         string Path,
         string Caption);

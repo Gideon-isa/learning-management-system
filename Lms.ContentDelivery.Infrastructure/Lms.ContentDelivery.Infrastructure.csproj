@@ -17,6 +17,7 @@
 	</ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Lms.ContentDelivery.Application\Lms.ContentDelivery.Application.csproj" />
     <ProjectReference Include="..\Lms.ContentDelivery.Domain\Lms.ContentDelivery.Domain.csproj" />
   </ItemGroup>
 

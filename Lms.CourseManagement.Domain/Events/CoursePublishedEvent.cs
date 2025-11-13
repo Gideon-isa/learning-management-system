@@ -5,10 +5,12 @@ namespace Lms.CourseManagement.Domain.Events
 {
     public sealed record CoursePublishedEvent(
         Guid CourseId, 
-        string CourseTitle, 
+        string CourseTitle,
+        string CourseCode,
+        string Category,
         Guid InstructorId,
         DateTime PublishedOn,
-        object[] Modules) : DomainEvent
+        List<CourseModule> Modules) : DomainEvent
     {
         
     }

@@ -19,7 +19,7 @@ namespace Lms.CourseManagement.Application.Features.Tags.Commands
         }
         public async Task<IResponseWrapper<LessonTagResponse>> Handle(CreateLessonTagCommand request, CancellationToken cancellationToken)
         {
-            var newTag = LessonTag.Create(request.TagName);
+            var newTag = LessonTag.Create(request.Name);
             await _lessonTagRespository.AddAsync(newTag, cancellationToken);
             await _unitOfWork.SaveChangesAsync();
             var tagDto = newTag.Adapt<LessonTagResponse>();

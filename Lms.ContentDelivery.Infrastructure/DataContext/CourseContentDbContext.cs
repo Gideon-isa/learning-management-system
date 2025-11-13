@@ -23,9 +23,9 @@ namespace Lms.ContentDelivery.Infrastructure.DataContext
                 .UsePropertyAccessMode(PropertyAccessMode.Field);
         }
 
-        public DbSet<CourseContent> CourseContents => Set<CourseContent>();
-        public DbSet<CourseModuleContent> CourseModuleContents => Set<CourseModuleContent>();
-        public DbSet<LessonContent> LessonContents => Set<LessonContent>();
+        public DbSet<CourseContent> CourseContentDelivery => Set<CourseContent>();
+        public DbSet<CourseModuleContent> CourseModuleContentDelivery => Set<CourseModuleContent>();
+        public DbSet<LessonContent> LessonContentDelivery => Set<LessonContent>();
         public DbSet<StudentAccess> StudentAccesses => Set<StudentAccess>();
     }
 }
