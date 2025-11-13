@@ -12,14 +12,16 @@ namespace Lms.ContentDelivery.Infrastructure.DI
     {
         public static IServiceCollection AddCourseContentInfrastructureServices(this IServiceCollection services, IConfiguration config) 
         {
+            services.AddDbContext<CourseContentDbContext>(option => 
+            {
+                option.UseSqlServer(config.GetConnectionString("DefaultConnection"));
+            });
+
             services.AddScoped<IContentDeliveryUnitOfWork, ContentDeliveryUnitOfWork>();
             services.AddScoped<ICourseContentRepository, CourseContentRepository>();
+            services.AddScoped<IStudentAccessRepository, StudentAccessRepository>();
 
-            return services.AddDbContext<CourseContentDbContext>(options =>
-            {
-                options.UseSqlServer(config.GetConnectionString("DefaultConnection")); 
-
-            });
+            return services;
         }
     }
 }
