@@ -20,12 +20,31 @@ namespace Lms.ContentDelivery.Infrastructure.Persistence
             return courseContent;
         }
 
+        public async Task<CourseContent?> GetCourseContentByCourseId(Guid courseId, CancellationToken cancellationToken)
+        {
+            return await _context.CourseContentDelivery
+                .Include(c => c.Modules)
+                .ThenInclude(m => m.Lessons)
+                .ThenInclude(l => l.Videos)
+                .FirstOrDefaultAsync(c => c.CourseId == courseId, cancellationToken);
+        }
+
         public async Task<CourseContent?> GetCourseContentByIdAsync(Guid id, CancellationToken cancellationToken)
         {
             return await _context.CourseContentDelivery
                 .Include(c => c.Modules)
                 .ThenInclude(c => c.Lessons)
                 .ThenInclude(c => c.Videos).FirstOrDefaultAsync(c => c.Id == id, cancellationToken);
+        }
+
+        public async Task<IEnumerable<CourseContent>> GetCourseContentsByCourseIdsAsync(List<Guid> courseIds, CancellationToken cancellationToken)
+        {
+            return await _context.CourseContentDelivery
+                .Include(c => c.Modules)
+                .ThenInclude(m => m.Lessons)
+                .ThenInclude(l => l.Videos)
+                .Where(c => courseIds.Contains(c.CourseId))
+                .ToListAsync(cancellationToken);            
         }
     }
 }
