@@ -7,6 +7,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Integration\**" />
+    <EmbeddedResource Remove="Integration\**" />
+    <None Remove="Integration\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="MediatR" Version="13.0.0" />
     <PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" Version="9.0.10" />
 	 <PackageReference Include="Scrutor" Version="6.1.0" />
@@ -22,7 +28,6 @@
   <ItemGroup>
     <Folder Include="Features\CourseFeatures\Queries\GetCourseCode\" />
     <Folder Include="Features\CourseFeatures\Queries\SearchCourseQuery\" />
-    <Folder Include="Integration\" />
   </ItemGroup>
 
 </Project>

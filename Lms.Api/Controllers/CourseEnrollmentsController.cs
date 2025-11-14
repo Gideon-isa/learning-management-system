@@ -1,13 +1,7 @@
-﻿using Azure.Core;
-using Lms.Api.Contracts.Enrollment;
-using Lms.CourseManagement.Application.Features.Module.Commands;
-using Lms.CourseManagement.Domain.Entities;
+﻿using Lms.Api.Contracts.Enrollment;
 using Lms.Enrollment.Application.Features.CourseEnrollment.Command;
 using Lms.Enrollment.Application.Features.CourseEnrollment.Queries;
-using Lms.Identity.Application.Features.Identity.Users.Queries.GetAll;
 using Lms.Shared.Application.Contracts;
-using Mapster;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Lms.Api.Controllers

@@ -2,6 +2,7 @@ using Lms.Api.DependencyInjections;
 using Lms.Api.Middleware;
 using Lms.Assessment.Application;
 using Lms.ContentDelivery.Application;
+using Lms.ContentDelivery.Application.Dependency;
 using Lms.ContentDelivery.Infrastructure.DI;
 using Lms.CourseManagement.Application;
 using Lms.CourseManagement.Application.DI;
@@ -38,6 +39,7 @@ builder.Services.AddCourseManagementApplicationServices();
 builder.Services.AddEnrollmentApplication();
 builder.Services.AddEnrollmentInfrastructureServices(builder.Configuration);
 builder.Services.AddCourseContentInfrastructureServices(builder.Configuration);
+builder.Services.AddCourseContentApplicationServices();
 
 //Register all request notification handlers from all application layers
 builder.Services.Scan(scan => scan
