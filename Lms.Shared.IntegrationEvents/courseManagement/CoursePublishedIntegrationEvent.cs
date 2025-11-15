@@ -36,6 +36,7 @@
         string TagName);
 
     public sealed record PublishedLessonVideoDto(
+        Guid VideoId,
         string Path,
         string Title,
         string ThumbNail,

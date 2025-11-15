@@ -18,6 +18,12 @@ namespace Lms.CourseManagement.Infrastructure.DI
             {
                 options.UseSqlServer(configuration.GetConnectionString("DefaultConnection"));
             });
+
+            services.AddDbContext<CourseSupportDbContext>(options =>
+            {
+                options.UseSqlServer(configuration.GetConnectionString("DefaultConnection"));
+            });
+
             services.AddScoped<ICourseRepository, CourseRepository>();
             services.AddScoped<ICourseManagementUnitOfWork, UnitofWork>();
             services.AddHostedService<OutboxProcessor>();
@@ -26,6 +32,7 @@ namespace Lms.CourseManagement.Infrastructure.DI
             services.AddScoped<ILessonTagRespository, LessonTagRepository>();
             services.AddScoped<MediatRIntegrationEventPublisher>(); // implementing the concrete
             services.AddScoped<IInstructorRepository, InstructorRepository>();
+            services.AddScoped<IVideoMetadataRepository, VideoMetadateRepository>();
            
             return services;
         }

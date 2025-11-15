@@ -1,4 +1,5 @@
-﻿using Lms.ContentDelivery.Application.Features.Queries.StudentCourse;
+﻿using Lms.ContentDelivery.Application.Features.Queries.StudentModule;
+using Lms.CourseManagement.Application.Features.Module.Queries;
 using Lms.Shared.Application.Contracts;
 using Microsoft.AspNetCore.Mvc;
 
@@ -14,12 +15,25 @@ namespace Lms.Api.Controllers
             var query = new GetStudentAccessCourseQuery { StudentCode = studentCode };
             await commandDispatcher.DispatcherAsync(query, cancellationToken);
             var response = await CustomMediator.Send(query, cancellationToken);
-            if(response.IsSuccessful)
+            if (response.IsSuccessful)
             {
                 return Ok(response);
             }
             return BadRequest(response);
-
         }
+
+        //[HttpGet("course/{courseId}/module/{moduleId}/lesson")]
+        //public async Task<IActionResult> GetModuleAsync(Guid courseId, Guid moduleId, [FromServices] ICommandDispatcher commandDispatcher, CancellationToken cancellationToken)
+        //{
+        //    var query = new GetMouduleByIdQuery { CourseId = courseId, ModuleId = moduleId };
+        //    await commandDispatcher.DispatcherAsync(query, cancellationToken);
+        //    var response = await CustomMediator.Send(query, cancellationToken);
+        //}
+
+        //[HttpGet("course/{courseId}/module/{moduleId}/lesson/{lessonId}/video/{videoTitle}")]
+        //public async Task<IActionResult> PlayVideo([FromRoute] Guid courseId, [FromRoute] Guid moduleId, [FromRoute] Guid lessonId, string videoTitle)
+        //{
+
+        //}
     }
 }

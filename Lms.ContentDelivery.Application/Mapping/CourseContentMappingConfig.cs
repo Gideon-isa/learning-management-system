@@ -1,4 +1,4 @@
-﻿using Lms.ContentDelivery.Application.Features.Queries.StudentCourse;
+﻿using Lms.ContentDelivery.Application.Features.Queries.StudentModule;
 using Lms.ContentDelivery.Domain.Entities;
 using Mapster;
 

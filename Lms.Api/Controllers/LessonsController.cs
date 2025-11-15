@@ -16,7 +16,7 @@ namespace Lms.Api.Controllers
         [HttpPost]
         public async Task<IActionResult> CreateModule([FromForm] CreateLessonRequest createLessonRequest,
             [FromServices] ICommandDispatcher commandDispatcher, CancellationToken cancellationToken)
-        {
+         {
             var cmd = createLessonRequest.ToCreateCommand();
             await commandDispatcher.DispatcherAsync(cmd, cancellationToken);
 

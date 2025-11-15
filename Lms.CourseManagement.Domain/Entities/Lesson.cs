@@ -44,6 +44,7 @@ namespace Lms.CourseManagement.Domain.Entities
             string lessonTitle, 
             string lessonDescription, 
             TimeSpan lessonCourseDuration, 
+            Guid videoId,
             string videoPath, 
             string videoTitle, 
             string videoThumbNail,
@@ -58,7 +59,7 @@ namespace Lms.CourseManagement.Domain.Entities
                 throw new Exception("Lesson duration must be positive.");
 
             var newLesson = new Lesson(lessonTitle, lessonDescription, lessonCourseDuration);
-            newLesson.AddVideo(videoPath, videoTitle, videoThumbNail, videoDescription);
+            newLesson.AddVideo(videoId, videoPath, videoTitle, videoThumbNail, videoDescription);
             newLesson.AddImage(lessonImages);
             newLesson.AddTags(lessonTags );
 
@@ -81,9 +82,9 @@ namespace Lms.CourseManagement.Domain.Entities
             //UpdatedAt = DateTime.UtcNow;
         }
 
-        public void AddVideo(string path, string title, string thumbNail, string description)
+        public void AddVideo(Guid videoId, string path, string title, string thumbNail, string description)
         {
-            _videos.Add(new LessonVideo(path, title, thumbNail, description));
+            _videos.Add(new LessonVideo(videoId, path, title, thumbNail, description));
             //UpdatedAt = DateTime.UtcNow;
         }
 

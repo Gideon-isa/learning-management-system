@@ -4,7 +4,7 @@ using Lms.Shared.Abstractions.Interfaces.Request;
 using Lms.SharedKernel.Common.Wrappers;
 using Mapster;
 
-namespace Lms.ContentDelivery.Application.Features.Queries.StudentCourse
+namespace Lms.ContentDelivery.Application.Features.Queries.StudentModule
 {
     public class GetStudentAccessCourseQueryHandler : ICustomRequestHandler<GetStudentAccessCourseQuery, IResponseWrapper<StudentAccessCourseResponse>>
     {
@@ -45,7 +45,8 @@ namespace Lms.ContentDelivery.Application.Features.Queries.StudentCourse
                                     Duration = lesson.Duration,
                                     Videos = [..lesson.Videos.Select(
                                         video => new VideoDto 
-                                        { 
+                                        {
+                                            VideoId = video.VideoId,
                                             Path = video.Path, 
                                             Title = video.Title, 
                                             Thumbnail = video.Thumbnail

@@ -1,4 +1,4 @@
-﻿namespace Lms.ContentDelivery.Application.Features.Queries.StudentCourse
+﻿namespace Lms.ContentDelivery.Application.Features.Queries.StudentModule
 {
     public class StudentAccessCourseResponse
     {
@@ -30,6 +30,7 @@
 
     public class VideoDto
     {
+        public Guid VideoId { get; set; }
         public string Path { get; set; } = string.Empty;
         public string Title { get; set; } = string.Empty;
         public string Thumbnail {  get; set; } = string.Empty;

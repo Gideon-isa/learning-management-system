@@ -22,6 +22,7 @@ namespace Lms.ContentDelivery.Infrastructure.Persistence
 
         public async Task<CourseContent?> GetCourseContentByCourseId(Guid courseId, CancellationToken cancellationToken)
         {
+
             return await _context.CourseContentDelivery
                 .Include(c => c.Modules)
                 .ThenInclude(m => m.Lessons)
