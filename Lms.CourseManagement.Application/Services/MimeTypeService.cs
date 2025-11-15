@@ -1,4 +1,4 @@
-﻿using Lms.CourseManagement.Application.Abstractions;
+﻿using Lms.Shared.Abstractions.FileStorage;
 
 namespace Lms.CourseManagement.Application.Services
 {

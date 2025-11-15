@@ -47,11 +47,11 @@ namespace Lms.ContentDelivery.Domain.Entities
         }
 
 
-        private void AddVideo(string path, string title, string thumbNail, string description)
-        {
-            _videos.Add(new LessonVideo(path, title, thumbNail, description));
-            //UpdatedAt = DateTime.UtcNow;
-        }
+        //private void AddVideo(string path, string title, string thumbNail, string description)
+        //{
+        //    _videos.Add(new LessonVideo(path, title, thumbNail, description));
+        //    //UpdatedAt = DateTime.UtcNow;
+        //}
 
         private void AddVideos(List<LessonVideo> videos)
         {

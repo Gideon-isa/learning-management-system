@@ -149,9 +149,12 @@ namespace Lms.ContentDelivery.Infrastructure.Migrations
 
                     b.Property<string>("StudentCode")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("StudentCode", "CourseId")
+                        .IsUnique();
 
                     b.ToTable("StudentAccesses");
                 });
@@ -192,6 +195,9 @@ namespace Lms.ContentDelivery.Infrastructure.Migrations
                             b1.Property<string>("Thumbnail")
                                 .IsRequired()
                                 .HasColumnType("nvarchar(max)");
+
+                            b1.Property<Guid>("VideoId")
+                                .HasColumnType("uniqueidentifier");
 
                             b1.HasKey("LessonId", "Title");
 

@@ -1,9 +1,6 @@
-﻿using Lms.CourseManagement.Domain.Entities;
-using Lms.CourseManagement.Infrastructure.Outbox;
-using Lms.SharedKernel.Application;
-using Lms.SharedKernel.Domain;
+﻿using Lms.CourseManagement.Application.Models;
+using Lms.CourseManagement.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Identity.Client;
 
 namespace Lms.CourseManagement.Infrastructure.DbContex
 {
@@ -44,8 +41,6 @@ namespace Lms.CourseManagement.Infrastructure.DbContex
         public DbSet<CourseModule> CourseModules { get; set; }
         public DbSet<Lesson> Lessons { get; set; }
         public DbSet<LessonTag> LessonTags { get; set; }
-        public DbSet<CourseOutboxMessage> CourseOutboxMessages => Set<CourseOutboxMessage>();
-
         public DbSet<Instructor> Instructors  => Set<Instructor>();
     }
 }

@@ -1,4 +1,4 @@
-﻿namespace Lms.CourseManagement.Application.Abstractions
+﻿namespace Lms.Shared.Abstractions.FileStorage
 {
     public interface IMimeTypeService
     {

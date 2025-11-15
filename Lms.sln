@@ -20,6 +20,9 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "CourseManagement", "CourseManagement", "{B57213E8-711A-4BE5-8EB2-B5ECB978DD7B}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Enrollment", "Enrollment", "{F340E955-A2FD-4D40-B9D1-9C62CE8EE1D3}"
+	ProjectSection(SolutionItems) = preProject
+		Lms.CourseManagement.Application\ICourseManagementMarker.cs = Lms.CourseManagement.Application\ICourseManagementMarker.cs
+	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Assessment", "Assessment", "{CDE97501-6AC2-4E4C-9303-9C2D516F36B6}"
 EndProject

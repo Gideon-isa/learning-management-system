@@ -99,42 +99,6 @@ namespace Lms.CourseManagement.Infrastructure.Migrations
                     b.ToTable("CourseModules");
                 });
 
-            modelBuilder.Entity("Lms.CourseManagement.Domain.Entities.CourseOutboxMessage", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("Content")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Error")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
-
-                    b.Property<DateTime?>("NextRetryOn")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime?>("OccuredOn")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime?>("ProcessedOn")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int>("RetryCount")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Type")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("CourseOutboxMessages");
-                });
-
             modelBuilder.Entity("Lms.CourseManagement.Domain.Entities.Instructor", b =>
                 {
                     b.Property<Guid>("Id")
@@ -344,6 +308,9 @@ namespace Lms.CourseManagement.Infrastructure.Migrations
                             b1.Property<string>("Thumbnail")
                                 .IsRequired()
                                 .HasColumnType("nvarchar(max)");
+
+                            b1.Property<Guid>("VideoId")
+                                .HasColumnType("uniqueidentifier");
 
                             b1.HasKey("LessonId", "Title");
 

@@ -21,6 +21,8 @@ namespace Lms.CourseManagement.Application.Features.Lesson.Command
         public Stream Content { get; set; } = default!;
         public string FileName { get; set; } = string.Empty;
         public string Title { get; set; } = string.Empty;
+        public string ContentType {  get; set; } = string.Empty;
+        public long FileSize { get; set; }
         public string ThumbNail { get; set; } = string.Empty;
         public string Description { get; set; } = string.Empty;
     }
