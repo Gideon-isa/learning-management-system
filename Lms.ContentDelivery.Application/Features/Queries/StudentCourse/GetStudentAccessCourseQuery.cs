@@ -1,7 +1,7 @@
 ﻿using Lms.Shared.Abstractions.Interfaces.Request;
 using Lms.SharedKernel.Common.Wrappers;
 
-namespace Lms.ContentDelivery.Application.Features.Queries.StudentCourse
+namespace Lms.ContentDelivery.Application.Features.Queries.StudentModule
 {
     public class GetStudentAccessCourseQuery : ICustomRequest<IResponseWrapper<StudentAccessCourseResponse>>
     {

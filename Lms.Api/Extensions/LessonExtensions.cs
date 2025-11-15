@@ -13,6 +13,9 @@ namespace Lms.Api.Extensions
                 Content = request?.VideoFile?.OpenReadStream() ?? null!,
                 FileName = request.VideoFile.FileName,
                 Title = request.VideoTitle,
+                ContentType = request.VideoFile.ContentType,
+                FileSize = request.VideoFile.Length,
+                ThumbNail = request.VideoThumbNail,
                 Description = request.VideoDescription,
             } 
             : null;

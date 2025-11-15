@@ -1,6 +1,6 @@
-﻿using Lms.CourseManagement.Application.Abstractions;
-using Lms.CourseManagement.Application.Features.LessonFeatures.Dto;
+﻿using Lms.CourseManagement.Application.Features.LessonFeatures.Dto;
 using Lms.CourseManagement.Domain.Repositories;
+using Lms.Shared.Abstractions.FileStorage;
 using Lms.Shared.Abstractions.Interfaces.Request;
 using Lms.SharedKernel.Common.Wrappers;
 

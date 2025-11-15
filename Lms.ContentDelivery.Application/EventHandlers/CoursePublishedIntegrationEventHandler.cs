@@ -39,7 +39,7 @@ namespace Lms.ContentDelivery.Application.EventHandlers
                 // for each lesson, creating lessons and videos
                 foreach (var lesson in module.Lessons)
                 {
-                    var lessonVideos = lesson.Videos.ToList().Select(v => new LessonVideo(v.Path, v.Title, "thumbnail", v.Description));
+                    var lessonVideos = lesson.Videos.ToList().Select(v => new LessonVideo(v.VideoId ,v.Path, v.Title, v.ThumbNail, v.Description));
                     var newlesson = LessonContent.Create(lesson.Title, lesson.Description, lesson.Duration, [..lessonVideos]);
 
                     // adding each lesson in to its module contained in the module
@@ -48,7 +48,6 @@ namespace Lms.ContentDelivery.Application.EventHandlers
                 // 
                 course.AddModuleToCourse(newCourseModule);
             }
-
             await _courseContentRepository.AddAsync(course, cancellationToken);
             await _contentDeliveryUnitOfWork.SaveChangesAsync(cancellationToken);
         }

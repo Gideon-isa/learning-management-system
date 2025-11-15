@@ -23,8 +23,10 @@ namespace Lms.ContentDelivery.Infrastructure.Configuration
 
                 vid.HasKey("LessonId", "Title");
 
-                vid.Property(img => img.Title).IsRequired().HasMaxLength(200);
-                vid.Property(img => img.Path).IsRequired().HasMaxLength(100);
+                vid.Property(vid => vid.Title).IsRequired().HasMaxLength(200);
+                vid.Property(vid => vid.Path).IsRequired().HasMaxLength(100);
+                vid.Property(vid => vid.VideoId).IsRequired();
+
             });
         }
     }

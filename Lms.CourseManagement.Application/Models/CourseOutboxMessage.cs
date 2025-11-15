@@ -1,10 +1,11 @@
 ﻿using Lms.SharedKernel.Domain;
 using System.Text.Json;
 
-namespace Lms.CourseManagement.Domain.Entities
+namespace Lms.CourseManagement.Application.Models
 {
-    public class CourseOutboxMessage : Entity<Guid>
+    public class CourseOutboxMessage 
     {
+        public Guid Id { get; set; }
         public string? Type { get; set; } = string.Empty;
         public string Content { get;  set; } = string.Empty; //
         public DateTime? ProcessedOn { get; set; } // When ot was successfully published
@@ -14,7 +15,7 @@ namespace Lms.CourseManagement.Domain.Entities
         public int RetryCount { get; set; } = 0;
         public DateTime? NextRetryOn { get; set; }
 
-        private CourseOutboxMessage() { }
+        private CourseOutboxMessage() { } // EF Core
 
         public CourseOutboxMessage(object integrationEvent)
         {

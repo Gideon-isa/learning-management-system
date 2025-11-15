@@ -39,22 +39,5 @@ namespace Lms.CourseManagement.Infrastructure.Persistence
             return result;
             
         }
-
-        //private static bool IsAggregateRoot(object entity)
-        //{
-        //    if (entity == null)
-        //        return false;
-
-        //    var type = entity.GetType();
-        //    while (type != null)
-        //    {
-        //        if (type.IsGenericType && type.GetGenericTypeDefinition() == typeof(AggregateRoot<>))
-        //            return true;
-
-        //        type = type.BaseType;
-        //    }
-
-        //    return false;
-        //}
     }
 }

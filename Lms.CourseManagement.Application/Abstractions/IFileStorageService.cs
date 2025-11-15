@@ -9,5 +9,6 @@ namespace Lms.CourseManagement.Application.Abstractions
         Task<IEnumerable<LessonImage>> UploadImageFileAsync(CreateLessonCommand command, CancellationToken cancellationToken);
         Task<string> GetFolderPath(CreateLessonCommand command, CancellationToken cancellationToken);
         Task<string> GetFilePath(string contentFileName, string folder, CancellationToken cancellationToken);
+        
     }
 }

@@ -1,5 +1,6 @@
 ﻿using Lms.CourseManagement.Application.Abstractions;
 using Lms.CourseManagement.Application.Services;
+using Lms.Shared.Abstractions.FileStorage;
 using Microsoft.Extensions.DependencyInjection;
 using System.Reflection;
 
