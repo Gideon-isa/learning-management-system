@@ -1,11 +1,12 @@
-﻿using Lms.ContentDelivery.Application.Features.Queries.StudentModule;
-using Lms.CourseManagement.Application.Features.Module.Queries;
+﻿using Lms.ContentDelivery.Application.Features.Queries.ContentDelivery;
+using Lms.ContentDelivery.Application.Features.Queries.StudentModule;
 using Lms.Shared.Application.Contracts;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Lms.Api.Controllers
 {
     [Route("api/[controller]")]
+    [Consumes("multipart/form-data")]
     public class ContentDeliveriesController : BaseApiController
     {
         [HttpGet("{studentCode}")]
@@ -22,18 +23,27 @@ namespace Lms.Api.Controllers
             return BadRequest(response);
         }
 
-        //[HttpGet("course/{courseId}/module/{moduleId}/lesson")]
-        //public async Task<IActionResult> GetModuleAsync(Guid courseId, Guid moduleId, [FromServices] ICommandDispatcher commandDispatcher, CancellationToken cancellationToken)
-        //{
-        //    var query = new GetMouduleByIdQuery { CourseId = courseId, ModuleId = moduleId };
-        //    await commandDispatcher.DispatcherAsync(query, cancellationToken);
-        //    var response = await CustomMediator.Send(query, cancellationToken);
-        //}
 
-        //[HttpGet("course/{courseId}/module/{moduleId}/lesson/{lessonId}/video/{videoTitle}")]
-        //public async Task<IActionResult> PlayVideo([FromRoute] Guid courseId, [FromRoute] Guid moduleId, [FromRoute] Guid lessonId, string videoTitle)
-        //{
+        [HttpGet("vidoes/{videoId}")]
+        public async Task<IActionResult> PlayVideo([FromRoute] Guid videoId, [FromServices] ICommandDispatcher commandDispatcher, CancellationToken cancellationToken)
+        {
+            var query = new GetVideoResourceByIdQuery { VideoId = videoId };
+            await commandDispatcher.DispatcherAsync(query, cancellationToken);
+            var response = await CustomMediator.Send(query, cancellationToken);
+            if (response.IsSuccessful)
+            {
+                var video = response.Data;
+                if (!System.IO.File.Exists(video.Path))
+                { 
+                    return NotFound();
+                }
+                var videoStream = System.IO.File.OpenRead(video.Path);
 
-        //}
+                return File(videoStream, video.ContentType, video.FileName, enableRangeProcessing: true);
+            }
+            return BadRequest(response);
+
+
+        }
     }
 }
