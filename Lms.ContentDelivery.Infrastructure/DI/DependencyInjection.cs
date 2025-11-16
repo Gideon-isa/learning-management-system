@@ -17,9 +17,15 @@ namespace Lms.ContentDelivery.Infrastructure.DI
                 option.UseSqlServer(config.GetConnectionString("DefaultConnection"));
             });
 
+            services.AddDbContext<CourseContentSupportDbContext>(option =>
+            {
+                option.UseSqlServer(config.GetConnectionString("DefaultConnection"));
+            });
+
             services.AddScoped<IContentDeliveryUnitOfWork, ContentDeliveryUnitOfWork>();
             services.AddScoped<ICourseContentRepository, CourseContentRepository>();
             services.AddScoped<IStudentAccessRepository, StudentAccessRepository>();
+            services.AddScoped<ICourseVideoRespository, CourseVideoRepository>();
 
             return services;
         }

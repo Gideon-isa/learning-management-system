@@ -1,5 +1,4 @@
-﻿using Lms.Api.Controllers;
-using Lms.Identity.Application.Features.Identity.Users.Commands.AddInstructor;
+﻿using Lms.Identity.Application.Features.Identity.Users.Commands.AddInstructor;
 using Lms.Identity.Application.Features.Identity.Users.Commands.AddUser;
 using Lms.Identity.Application.Features.Identity.Users.Commands.CompleteUserProfile;
 using Lms.Identity.Application.Features.Identity.Users.Commands.DeleteUser;
@@ -13,7 +12,7 @@ using Mapster;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
-namespace LearningManagementSystem.WebApi.Controllers
+namespace Lms.Api.Controllers
 {
     [Route("api/[controller]")]
     public class UsersController : BaseApiController
