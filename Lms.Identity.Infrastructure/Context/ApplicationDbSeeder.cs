@@ -139,7 +139,6 @@ namespace Lms.Identity.Infrastructure.Context
             {
                 await _userManager.AddToRoleAsync(user, RoleConstants.Admin);
             }
-
         }
     }
 }

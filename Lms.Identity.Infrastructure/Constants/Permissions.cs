@@ -1,4 +1,4 @@
-﻿using Lms.Identity.Infrastructure.Constants;
+﻿using Lms.Shared.Security.Permissions;
 using System.Collections.ObjectModel;
 
 namespace Lms.Identity.Infrastructure.Constants

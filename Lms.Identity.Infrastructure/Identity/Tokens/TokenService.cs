@@ -4,7 +4,6 @@ using Lms.Identity.Application.Features.Identity.Tokens;
 using Lms.Identity.Application.Features.Identity.Tokens.Queries;
 using Lms.Identity.Infrastructure.Identity.Models;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
@@ -27,7 +26,8 @@ namespace Lms.Identity.Infrastructure.Identity.Tokens
         {
             #region Validation
 
-            var userInDb = await _userManager.FindByNameAsync(request.TokenRequest.Username) ?? throw new UnauthorizedException(["Authentication not successful"]);
+            var userInDb = await _userManager.FindByEmailAsync(request.TokenRequest.Username) 
+                ?? throw new UnauthorizedException(["Authentication not successful"]);
 
             if (await _userManager.CheckPasswordAsync(userInDb, request.TokenRequest.Password) is false)
             {
@@ -42,7 +42,6 @@ namespace Lms.Identity.Infrastructure.Identity.Tokens
             #endregion
             // Generate jwt
             return await GenerateTokenAndUpdateUserAsync(userInDb);
-
         }
 
         public async Task<TokenResponse> RefreshTokenAsync(RefreshTokenRequest refreshTokenRequest)

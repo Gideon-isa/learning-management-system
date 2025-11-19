@@ -54,16 +54,9 @@ namespace Lms.Identity.Infrastructure.Services
             var userInDb = await GetActiveUserByEmailAsync(command.Request.Email, token);
             var passwordCheck = await _userManager.CheckPasswordAsync(userInDb, command.Request.CurrentPassword);
             if (!passwordCheck)
-            {
                 throw new IdentityException(["Current password is incorrect"]);
-            }
-
             var result = await _userManager.ChangePasswordAsync(userInDb, command.Request.CurrentPassword, command.Request.NewPassword);
             EnsureOperationIsSuccessful(result);
-            //if (!result.Succeeded)
-            //{
-            //    throw new IdentityException(IdentityHelper.GetIdentityResultErrorDescriptions(result));
-            //}
             return "Password Updated successfully";
         }
 
@@ -83,10 +76,6 @@ namespace Lms.Identity.Infrastructure.Services
 
             var result = await _userManager.CreateAsync(newUser, command.RegisterUserRequest.Password);
             EnsureOperationIsSuccessful(result);
-            //if (!result.Succeeded)
-            //{
-            //    throw new IdentityException(IdentityHelper.GetIdentityResultErrorDescriptions(result));
-            //}
             return newUser.Adapt<UserResponse>();
         }
 
@@ -100,17 +89,9 @@ namespace Lms.Identity.Infrastructure.Services
         {
             var userInDb = await _userManager.FindByIdAsync(id);
             EnsureUserIsActive(userInDb);
-            //if (userInDb == null || !userInDb.IsActive)
-            //{
-            //    throw new NotFoundException(["user not found or inactive"]);
-            //}
             userInDb.IsActive = false;
             var result = await _userManager.UpdateAsync(userInDb);
             EnsureOperationIsSuccessful(result);
-            //if (!result.Succeeded)
-            //{
-            //    throw new IdentityException(["Some went wrong"]);
-            //}
             return "User successfully deleted";
 
         }
@@ -125,10 +106,6 @@ namespace Lms.Identity.Infrastructure.Services
         {
             var userInDb = await _userManager.FindByEmailAsync(request.Request.Email);
             EnsureUserIsActive(userInDb);
-            //if (userInDb == null || !userInDb.IsActive)
-            //{
-            //    throw new NotFoundException(["User not found or inactive"]);
-            //}
             var resetToken = await _userManager.GeneratePasswordResetTokenAsync(userInDb);
             var encodedToken = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(resetToken));
             var resetAppUrl = $"{_appOptions.FrontendAppUrl}/reset-password?email={request.Request.Email}&token={encodedToken}";
@@ -160,28 +137,10 @@ namespace Lms.Identity.Infrastructure.Services
             return users.Adapt<List<UserResponse>>();
         }
 
-        //public async Task<UserResponse> GetByEmailAsync(GetUserByEmailQuery command, CancellationToken token)
-        //{
-        //    var userInDb = await GetActivetUserByEmailAsync(command.GetUserByEmailRequest.Email, token);
-        //    return userInDb.Adapt<UserResponse>();
-        //}
-
         public async Task<UserResponse> GetUserAsync(GetUserQuery query, CancellationToken token)
         {
             var userInDb = await GetActiveUserByEmailAsync(query.UserIdOrEmail, token);
             return userInDb.Adapt<UserResponse>();
-            //var isEmail = IsEmailAsync(command.UserIdOrEmail, token);
-            //if (isEmail)
-            //{ 
-                
-            //}
-            //var userInDb = await _userManager.FindByIdAsync(command.UserIdOrEmail.UserId);
-            //EnsureUserIsActive(userInDb);
-            ////if (userInDb == null || !userInDb.IsActive)
-            ////{
-            ////    throw new NotFoundException(["User not found or is inactive"]);
-            ////}
-            //return userInDb.Adapt<UserResponse>();
         }
 
         public async Task<string> ResetPasswordAsync(ResetPasswordCommand command, CancellationToken token)
@@ -190,10 +149,6 @@ namespace Lms.Identity.Infrastructure.Services
             var userInDb = await GetActiveUserByEmailAsync(command.Request.Email, token);
             var result = await _userManager.ResetPasswordAsync(userInDb, decodedToken, command.Request.NewPassword);
             EnsureOperationIsSuccessful(result);
-            //if (!result.Succeeded)
-            //{
-            //    throw new IdentityException(IdentityHelper.GetIdentityResultErrorDescriptions(result));
-            //}
             return "Password has been successfully reset";
         }
 
@@ -225,9 +180,7 @@ namespace Lms.Identity.Infrastructure.Services
         {
             int minimumValidEmailLength = 5; // minimum length of a valid email address
             if (!emailOrId.Contains('@') || emailOrId.Length < minimumValidEmailLength)
-            {
                 return false;
-            }
 
             try
             {
@@ -248,10 +201,7 @@ namespace Lms.Identity.Infrastructure.Services
         private void EnsureUserIsActive(ApplicationUser? user)
         {
             if (user == null || !user.IsActive)
-            {
                 throw new IdentityException(["User not found or is inactive"]);
-            }
-
         }
 
         /// <summary>
@@ -259,13 +209,10 @@ namespace Lms.Identity.Infrastructure.Services
         /// </summary>
         /// <param name="result"></param>
         /// <exception cref="IdentityException"></exception>
-        private void EnsureOperationIsSuccessful(IdentityResult result)
+        private static void EnsureOperationIsSuccessful(IdentityResult result)
         {
             if (!result.Succeeded)
-            {
                 throw new IdentityException(IdentityHelper.GetIdentityResultErrorDescriptions(result));
-            }
-
         }
 
         /// <summary>
@@ -283,8 +230,7 @@ namespace Lms.Identity.Infrastructure.Services
 
             user.InstructorStatus = InstructorStatus.PendingApproval;
             var result = await _userManager.UpdateAsync(user);
-            if (!result.Succeeded)
-                throw new IdentityException(IdentityHelper.GetIdentityResultErrorDescriptions(result));
+            EnsureOperationIsSuccessful(result);    
             return user.Adapt<UserResponse>();
         }
 
@@ -308,17 +254,14 @@ namespace Lms.Identity.Infrastructure.Services
                 // assign role Instructor to user
                 user.InstructorStatus = InstructorStatus.Approved;
                 result = await _userManager.AddToRoleAsync(user, RoleConstants.Instructor);
-
-                if (!result.Succeeded)
-                    throw new IdentityException(IdentityHelper.GetIdentityResultErrorDescriptions(result));   
+                EnsureOperationIsSuccessful(result); 
             }
             else
             {
                 user.InstructorStatus = command.ApprovalStatus;
             }
             var updateResult = await _userManager.UpdateAsync(user);
-            if (!updateResult.Succeeded) throw new IdentityException(IdentityHelper.GetIdentityResultErrorDescriptions(result));
-
+            EnsureOperationIsSuccessful(updateResult);
             return (result.Succeeded, user.Adapt<UserResponse>());
         }
 
@@ -330,11 +273,12 @@ namespace Lms.Identity.Infrastructure.Services
         /// <returns></returns>
         public async Task<List<UserResponse>> GetUserInstructorRequestsAsync(GetUserInstructorsQuery request, CancellationToken cancellationToken)
         {
-            var userInstructors = await _userManager.Users.Where(u => u.InstructorStatus == InstructorStatus.PendingApproval).ToListAsync();
+            var userInstructors = await _userManager.Users
+                .Where(u => u.InstructorStatus == InstructorStatus.PendingApproval).ToListAsync(cancellationToken);
             return userInstructors.Adapt<List<UserResponse>>();
         }
 
-        ///
+        
         public async Task<UserResponse> UpdateUserAsync(CompleteUserProfileCommand command, CancellationToken token)
         {
             var user = await GetActiveUserByEmailAsync(command.Id.ToString(), token);
@@ -356,6 +300,11 @@ namespace Lms.Identity.Infrastructure.Services
             //if student publish to the Enrollment Module
             if (command.Role == UserRole.Student)
             {
+                // assigning Student role
+                var result = await _userManager.AddToRoleAsync(user, RoleConstants.Student);
+
+                EnsureOperationIsSuccessful(result);
+
                 // Student Code Generation
                 user.StudentCode = _studentCodeGenerator.GenerateStudentCode();
 
@@ -368,7 +317,6 @@ namespace Lms.Identity.Infrastructure.Services
                 // logging
 
             }
-
             await _userManager.UpdateAsync(user);
             return user.Adapt<UserResponse>();
         }

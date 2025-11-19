@@ -4,9 +4,9 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Lms.CourseManagement.Infrastructure.Configuration
 {
-    public class LessonConfiguration : IEntityTypeConfiguration<Lesson>
+    public class LessonConfiguration : IEntityTypeConfiguration<Content>
     {
-        public void Configure(EntityTypeBuilder<Lesson> builder)
+        public void Configure(EntityTypeBuilder<Content> builder)
         {
             builder.HasKey(l => l.Id);
 
@@ -19,7 +19,7 @@ namespace Lms.CourseManagement.Infrastructure.Configuration
             builder.OwnsMany(l => l.Notes, notes =>
             {
                 notes.ToTable("LessonNotes");
-                notes.WithOwner().HasForeignKey("LessonId"); // foreign key for Lesson on Notes Table
+                notes.WithOwner().HasForeignKey("LessonId"); // foreign key for Content on Notes Table
 
                 notes.HasKey("LessonId", "Title"); // Composite Key
                                                    

@@ -3,7 +3,7 @@ using Lms.SharedKernel.Domain;
 
 namespace Lms.CourseManagement.Domain.Entities
 {
-    public class Lesson : Entity<Guid>
+    public class Content : Entity<Guid>
     {
         private readonly List<LessonNote> _notes = [];
         private readonly List<LessonImage> _images = [];
@@ -11,7 +11,7 @@ namespace Lms.CourseManagement.Domain.Entities
         private readonly List<LessonTagReference> _tags = [];
         
 
-        private Lesson() { } // EF core 
+        private Content() { } // EF core 
 
         /// <summary>
         /// 
@@ -19,7 +19,7 @@ namespace Lms.CourseManagement.Domain.Entities
         /// <param name="moduleId"></param>
         /// <param name="title"></param>
         /// <param name="order"></param>
-        private Lesson(string title, string description, TimeSpan courseDuration)
+        private Content(string title, string description, TimeSpan courseDuration)
         {
             //Id = Guid.NewGuid();
             //ModuleId = moduleId;
@@ -40,7 +40,7 @@ namespace Lms.CourseManagement.Domain.Entities
 
         public void AssignOrder(int order) => Order = order;
 
-        public static Lesson Create(
+        public static Content Create(
             string lessonTitle, 
             string lessonDescription, 
             TimeSpan lessonCourseDuration, 
@@ -56,9 +56,9 @@ namespace Lms.CourseManagement.Domain.Entities
                 throw new ArgumentException("Title is required. ", nameof(lessonTitle));
 
             if (lessonCourseDuration <= TimeSpan.Zero)
-                throw new Exception("Lesson duration must be positive.");
+                throw new Exception("Content duration must be positive.");
 
-            var newLesson = new Lesson(lessonTitle, lessonDescription, lessonCourseDuration);
+            var newLesson = new Content(lessonTitle, lessonDescription, lessonCourseDuration);
             newLesson.AddVideo(videoId, videoPath, videoTitle, videoThumbNail, videoDescription);
             newLesson.AddImage(lessonImages);
             newLesson.AddTags(lessonTags );

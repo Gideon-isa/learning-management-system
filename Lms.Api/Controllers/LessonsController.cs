@@ -11,6 +11,13 @@ namespace Lms.Api.Controllers
     [Route("api/[controller]")]
     public class LessonsController : BaseApiController
     {
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="createLessonRequest"></param>
+        /// <param name="commandDispatcher"></param>
+        /// <param name="cancellationToken"></param>
+        /// <returns></returns>
         [AllowAnonymous]
         [Consumes("multipart/form-data")]
         [HttpPost]
@@ -30,6 +37,13 @@ namespace Lms.Api.Controllers
             return BadRequest(response);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="lessonId"></param>
+        /// <param name="commandDispatcher"></param>
+        /// <param name="cancellationToken"></param>
+        /// <returns></returns>
         [HttpGet("{lessonId}")]
         public async Task<IActionResult> GetLessonById([FromRoute] Guid lessonId,
             [FromServices] ICommandDispatcher commandDispatcher, CancellationToken cancellationToken)
@@ -44,6 +58,14 @@ namespace Lms.Api.Controllers
             return BadRequest(response);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="lessonId"></param>
+        /// <param name="videoTitle"></param>
+        /// <param name="commandDispatcher"></param>
+        /// <param name="cancellationToken"></param>
+        /// <returns></returns>
         [HttpGet("{lessonId}/videos/{videoTitle}")]
         public async Task<IActionResult> PlayVideo([FromRoute] Guid lessonId, string videoTitle, 
             [FromServices] ICommandDispatcher commandDispatcher, CancellationToken cancellationToken)

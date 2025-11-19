@@ -9,6 +9,13 @@ namespace Lms.Api.Controllers
     [Consumes("multipart/form-data")]
     public class ContentDeliveriesController : BaseApiController
     {
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="studentCode"></param>
+        /// <param name="commandDispatcher"></param>
+        /// <param name="cancellationToken"></param>
+        /// <returns></returns>
         [HttpGet("{studentCode}")]
         public async Task<IActionResult> GetStudentAccess
             ([FromRoute] string studentCode, [FromServices] ICommandDispatcher commandDispatcher, CancellationToken cancellationToken)
@@ -23,7 +30,13 @@ namespace Lms.Api.Controllers
             return BadRequest(response);
         }
 
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="videoId"></param>
+        /// <param name="commandDispatcher"></param>
+        /// <param name="cancellationToken"></param>
+        /// <returns></returns>
         [HttpGet("vidoes/{videoId}")]
         public async Task<IActionResult> PlayVideo([FromRoute] Guid videoId, [FromServices] ICommandDispatcher commandDispatcher, CancellationToken cancellationToken)
         {

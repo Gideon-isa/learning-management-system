@@ -11,6 +11,13 @@ namespace Lms.Api.Controllers
     [Route("api/courses/{courseId}/modules")]
     public class CourseModulesController : BaseApiController
     {
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="createCourseModuleReq"></param>
+        /// <param name="commandDispatcher"></param>
+        /// <param name="cancellationToken"></param>
+        /// <returns></returns>
         [AllowAnonymous]
         [HttpPost]
         public async Task<IActionResult> CreateModule([FromBody] CreateCourseModuleRequest createCourseModuleReq,
@@ -28,7 +35,14 @@ namespace Lms.Api.Controllers
             return BadRequest(response);
         }
 
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="moduleId"></param>
+        /// <param name="courseId"></param>
+        /// <param name="commandDispatcher"></param>
+        /// <param name="cancellationToken"></param>
+        /// <returns></returns>
         [AllowAnonymous]
         [HttpGet("{moduleId}")]
         public async Task<IActionResult> GetModuleById([FromRoute] Guid moduleId, [FromRoute] Guid courseId,

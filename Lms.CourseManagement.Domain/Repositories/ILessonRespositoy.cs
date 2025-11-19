@@ -7,6 +7,6 @@ namespace Lms.CourseManagement.Domain.Repositories
     /// </summary>
     public interface ILessonRespositoy
     {
-        Task<Lesson?> GetByIdAsync(Guid lessonId, CancellationToken cancellationToken);
+        Task<Content?> GetByIdAsync(Guid lessonId, CancellationToken cancellationToken);
     }
 }

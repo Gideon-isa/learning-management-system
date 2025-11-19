@@ -62,7 +62,7 @@ namespace Lms.CourseManagement.Application.Features.LessonFeatures.Command
                 FileSize = request.Video.FileSize,
             };
 
-            var newLesson = Domain.Entities.Lesson.Create(
+            var newLesson = Domain.Entities.Content.Create(
                     lessonTitle: request.Title,
                     lessonDescription: request.Description,
                     lessonCourseDuration: request.Duration,
@@ -78,7 +78,7 @@ namespace Lms.CourseManagement.Application.Features.LessonFeatures.Command
             await _videoMetadataRepository.AddAsync(videoMetadata, cancellationToken);
             await _unitOfWork.SaveChangesAsync(cancellationToken);
             //module.Lessons.Adapt<LessonResponse>();
-            return await ResponseWrapper.SuccessAsync("Lesson created successfully");
+            return await ResponseWrapper.SuccessAsync("Content created successfully");
         }
     }
 }

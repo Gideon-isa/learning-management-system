@@ -145,7 +145,7 @@ namespace Lms.CourseManagement.Infrastructure.Migrations
                     b.ToTable("Instructors");
                 });
 
-            modelBuilder.Entity("Lms.CourseManagement.Domain.Entities.Lesson", b =>
+            modelBuilder.Entity("Lms.CourseManagement.Domain.Entities.Content", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -210,7 +210,7 @@ namespace Lms.CourseManagement.Infrastructure.Migrations
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
-            modelBuilder.Entity("Lms.CourseManagement.Domain.Entities.Lesson", b =>
+            modelBuilder.Entity("Lms.CourseManagement.Domain.Entities.Content", b =>
                 {
                     b.HasOne("Lms.CourseManagement.Domain.Entities.CourseModule", null)
                         .WithMany("Lessons")

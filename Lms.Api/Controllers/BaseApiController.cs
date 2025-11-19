@@ -5,7 +5,9 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Lms.Api.Controllers
 {
-    
+    /// <summary>
+    /// 
+    /// </summary>
     [ApiController]
     public class BaseApiController : ControllerBase
     {

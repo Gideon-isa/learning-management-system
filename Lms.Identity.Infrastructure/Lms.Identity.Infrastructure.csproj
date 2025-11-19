@@ -19,6 +19,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\Lms.Shared.Security\Lms.Shared.Security.csproj" />
     <ProjectReference Include="..\Lms.Identity.Application\Lms.Identity.Application.csproj" />
     <ProjectReference Include="..\Lms.Shared.Application\Lms.Shared.Application.csproj" />
   </ItemGroup>
