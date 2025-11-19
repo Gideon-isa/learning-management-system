@@ -10,6 +10,13 @@ namespace Lms.Api.Controllers
     [Route("api/[controller]")]
     public class LessonTagsController : BaseApiController
     {
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="request"></param>
+        /// <param name="commandDispatcher"></param>
+        /// <param name="cancellationToken"></param>
+        /// <returns></returns>
         [HttpPost]
         public async Task<IActionResult> CreateLessonTag([FromBody] CreateLessonTagsRequest request, 
             [FromServices] ICommandDispatcher commandDispatcher, CancellationToken cancellationToken)
@@ -26,6 +33,13 @@ namespace Lms.Api.Controllers
             return BadRequest(request);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="tagId"></param>
+        /// <param name="commandDispatcher"></param>
+        /// <param name="cancellationToken"></param>
+        /// <returns></returns>
         [HttpGet("{tagId}")]
         public async Task<IActionResult> GetLeessonTagById([FromRoute] Guid tagId,
             [FromServices] ICommandDispatcher commandDispatcher, CancellationToken cancellationToken)
@@ -40,6 +54,12 @@ namespace Lms.Api.Controllers
             return BadRequest(response);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="commandDispatcher"></param>
+        /// <param name="cancellationToken"></param>
+        /// <returns></returns>
         [HttpGet]
         public async Task<IActionResult> GetAllLessons([FromServices] ICommandDispatcher commandDispatcher, CancellationToken cancellationToken)
         {

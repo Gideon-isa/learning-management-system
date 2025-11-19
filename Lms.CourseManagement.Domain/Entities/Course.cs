@@ -57,7 +57,7 @@ namespace Lms.CourseManagement.Domain.Entities
             _modules.Add(module);
         }
 
-        public void AddLessonToModule(Guid moduleId, Lesson lesson)
+        public void AddLessonToModule(Guid moduleId, Content lesson)
         {
             var module = _modules.FirstOrDefault(m => m.Id == moduleId) ??
                 throw new InvalidOperationException("Module not found in this course");

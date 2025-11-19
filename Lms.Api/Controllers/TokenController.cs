@@ -9,6 +9,11 @@ namespace Lms.Api.Controllers
     [Route("api/[controller]")]
     public class TokenController : BaseApiController
     {
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="tokenRequest"></param>
+        /// <returns></returns>
         [HttpPost("login")]
         [AllowAnonymous]
         [OpenApiOperation("Used to obtain jwt for login")]
@@ -23,6 +28,11 @@ namespace Lms.Api.Controllers
             return BadRequest(response);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="refreshTokenokenRequest"></param>
+        /// <returns></returns>
         [HttpPost("refresh-token")]
         [OpenApiOperation("Used to generate new jwt from refresh token")]
         [AllowAnonymous]

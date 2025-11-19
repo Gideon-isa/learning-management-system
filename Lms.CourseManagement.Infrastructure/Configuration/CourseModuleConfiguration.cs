@@ -14,7 +14,7 @@ namespace Lms.CourseManagement.Infrastructure.Configuration
                 .HasDefaultValueSql("NEWID()")
                 .ValueGeneratedOnAdd();
 
-            builder.HasMany<Lesson>(cm => cm.Lessons)
+            builder.HasMany<Content>(cm => cm.Lessons)
                 .WithOne()
                 .HasForeignKey("ModuleId")
                 .OnDelete(DeleteBehavior.Cascade); // shadow FK

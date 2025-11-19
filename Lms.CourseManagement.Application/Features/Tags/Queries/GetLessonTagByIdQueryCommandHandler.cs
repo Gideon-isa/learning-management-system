@@ -23,7 +23,7 @@ namespace Lms.CourseManagement.Application.Features.Tags.Queries
                 ?? throw new Exception();
 
             var tagDto = tag.Adapt<LessonTagResponse>();
-            return await ResponseWrapper<LessonTagResponse>.SuccessAsync(data: tagDto, messages: ["Lesson tag retrieved successfully"]);
+            return await ResponseWrapper<LessonTagResponse>.SuccessAsync(data: tagDto, messages: ["Content tag retrieved successfully"]);
         }
     }
 }

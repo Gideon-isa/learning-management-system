@@ -23,7 +23,7 @@ namespace Lms.CourseManagement.Application.Features.Tags.Commands
             await _lessonTagRespository.AddAsync(newTag, cancellationToken);
             await _unitOfWork.SaveChangesAsync();
             var tagDto = newTag.Adapt<LessonTagResponse>();
-            return await ResponseWrapper<LessonTagResponse>.SuccessAsync(data: tagDto, messages: ["Lesson tag created successfully"]);
+            return await ResponseWrapper<LessonTagResponse>.SuccessAsync(data: tagDto, messages: ["Content tag created successfully"]);
         }
     }
 }

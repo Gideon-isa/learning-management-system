@@ -1,6 +1,7 @@
 ﻿using FluentValidation;
 using Lms.Shared.Application.Contracts;
 using Lms.Shared.Application.EventDispatcher;
+using Lms.Shared.Application.Sorting;
 using Lms.Shared.Application.Validation.Pipeline;
 using Lms.Shared.Application.Validations;
 using Lms.SharedKernel.Application;
@@ -31,10 +32,7 @@ namespace Lms.Shared.Application
             // Registering the Validation Pipeline   
             services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationPipelineBehaviour<,>));
             services.AddScoped<IDomainEventDispatcher, DomainEventDispatcher>();
-
-            // Custom Mediator Registration
-            //services.AddScoped<ICustomMediator, MiniMediator>();
-            //services.AddCustomMediator(assembly);
+            //services.AddTransient<SortMappingProvider>();
             return services;
         }
 

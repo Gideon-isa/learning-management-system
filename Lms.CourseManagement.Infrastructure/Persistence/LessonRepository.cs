@@ -14,7 +14,7 @@ namespace Lms.CourseManagement.Infrastructure.Persistence
             _dbContext = dbContext;
         }
 
-        public async Task<Lesson?> GetByIdAsync(Guid lessonId, CancellationToken cancellationToken)
+        public async Task<Content?> GetByIdAsync(Guid lessonId, CancellationToken cancellationToken)
         {
             return await _dbContext
                         .Lessons

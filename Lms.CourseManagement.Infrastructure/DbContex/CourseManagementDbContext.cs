@@ -27,19 +27,19 @@ namespace Lms.CourseManagement.Infrastructure.DbContex
             modelBuilder.Entity<CourseModule>().Navigation(c => c.Lessons)
                 .UsePropertyAccessMode(PropertyAccessMode.Field);
 
-            modelBuilder.Entity<Lesson>().Navigation(c => c.Videos)
+            modelBuilder.Entity<Content>().Navigation(c => c.Videos)
                 .UsePropertyAccessMode(PropertyAccessMode.Field);
 
-            modelBuilder.Entity<Lesson>().Navigation(c => c.Images)
+            modelBuilder.Entity<Content>().Navigation(c => c.Images)
                 .UsePropertyAccessMode(PropertyAccessMode.Field);
 
-            modelBuilder.Entity<Lesson>().Navigation(c => c.Notes)
+            modelBuilder.Entity<Content>().Navigation(c => c.Notes)
                 .UsePropertyAccessMode(PropertyAccessMode.Field);
 
         }
         public DbSet<Course> Courses { get; set; }
         public DbSet<CourseModule> CourseModules { get; set; }
-        public DbSet<Lesson> Lessons { get; set; }
+        public DbSet<Content> Lessons { get; set; }
         public DbSet<LessonTag> LessonTags { get; set; }
         public DbSet<Instructor> Instructors  => Set<Instructor>();
     }

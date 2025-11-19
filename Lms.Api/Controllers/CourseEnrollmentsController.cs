@@ -9,6 +9,14 @@ namespace Lms.Api.Controllers
     [Route("api/[controller]")]
     public class CourseEnrollmentsController : BaseApiController
     {
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="request"></param>
+        /// <param name="courseId"></param>
+        /// <param name="commandDispatcher"></param>
+        /// <param name="cancellationToken"></param>
+        /// <returns></returns>
         [HttpPost("{courseId}/")]
         public async Task<IActionResult> EnrollStudentsAsync([FromBody] CreateStudentEnrollmentRequest request, Guid courseId, 
             [FromServices] ICommandDispatcher commandDispatcher, CancellationToken cancellationToken)
@@ -26,6 +34,13 @@ namespace Lms.Api.Controllers
             return BadRequest(response);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="enrollmentId"></param>
+        /// <param name="commandDispatcher"></param>
+        /// <param name="cancellationToken"></param>
+        /// <returns></returns>
         [HttpGet("{enrollmentId}")]
         public async Task<IActionResult> GetCourseEnrollmentById(Guid enrollmentId, [FromServices] ICommandDispatcher commandDispatcher, CancellationToken cancellationToken)
         {
@@ -41,6 +56,12 @@ namespace Lms.Api.Controllers
             return BadRequest(response);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="commandDispatcher"></param>
+        /// <param name="cancellationToken"></param>
+        /// <returns></returns>
         [HttpGet("available-courses")]
         public async Task<IActionResult> GetAllAvailableCourses([FromServices] ICommandDispatcher commandDispatcher, CancellationToken cancellationToken)
         {
@@ -55,6 +76,12 @@ namespace Lms.Api.Controllers
 
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="commandDispatcher"></param>
+        /// <param name="cancellationToken"></param>
+        /// <returns></returns>
         [HttpGet("available-students")]
         public async Task<IActionResult> GetAllAvailableStudents([FromServices] ICommandDispatcher commandDispatcher, CancellationToken cancellationToken)
         {
@@ -68,6 +95,14 @@ namespace Lms.Api.Controllers
             return BadRequest(response);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="enrollmentId"></param>
+        /// <param name="studentId"></param>
+        /// <param name="commandDispatcher"></param>
+        /// <param name="cancellationToken"></param>
+        /// <returns></returns>
         [HttpPut("{enrollmentId}/students/{studentId}/unenroll-student")]
         public async Task<IActionResult> UnEnrollStudentsAsync([FromRoute] Guid enrollmentId, Guid studentId,
             [FromServices] ICommandDispatcher commandDispatcher, CancellationToken cancellationToken)
@@ -83,6 +118,13 @@ namespace Lms.Api.Controllers
             }
             return BadRequest(response);
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="commandDispatcher"></param>
+        /// <param name="cancellationToken"></param>
+        /// <returns></returns>
 
         [HttpGet]
         public async Task<IActionResult> GetAllEnrollment([FromServices] ICommandDispatcher commandDispatcher, CancellationToken cancellationToken)

@@ -11,8 +11,10 @@ namespace Lms.Api.DependencyInjections
         {
             var swaggerSettings = config.GetSection(nameof(SwaggerSettings)).Get<SwaggerSettings>();
             services.AddEndpointsApiExplorer();
+         
             services.AddOpenApiDocument((document, serviceProider) =>
             {
+                
                 document.PostProcess = doc =>
                 {
                     doc.Info.Title = swaggerSettings?.Title;
@@ -28,6 +30,8 @@ namespace Lms.Api.DependencyInjections
                         Name = swaggerSettings?.LicenseName,
                         Url = swaggerSettings?.LicenseUrl,
                     };
+                    
+                    
                 };
 
                 document.AddSecurity(JwtBearerDefaults.AuthenticationScheme, new NSwag.OpenApiSecurityScheme
@@ -39,6 +43,10 @@ namespace Lms.Api.DependencyInjections
                     Scheme = JwtBearerDefaults.AuthenticationScheme,
                     BearerFormat = "JWT"
                 });
+
+              
+
+                var xmlPath = Path.Combine(AppContext.BaseDirectory, "Lms.Api.xml");
 
                 document.OperationProcessors.Add(new AspNetCoreOperationSecurityScopeProcessor());
                 document.OperationProcessors.Add(new SwaggerGlabalAuthProcessor());
