@@ -3,6 +3,7 @@ using Lms.CourseManagement.Domain.Repositories;
 using Lms.CourseManagement.Infrastructure.DbContex;
 using Lms.CourseManagement.Infrastructure.Outbox;
 using Lms.CourseManagement.Infrastructure.Persistence;
+using Lms.Shared.Abstractions.DatabaseSeeder;
 using Lms.Shared.IntegrationEvents.Integration;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -33,6 +34,9 @@ namespace Lms.CourseManagement.Infrastructure.DI
             services.AddScoped<MediatRIntegrationEventPublisher>(); // implementing the concrete
             services.AddScoped<IInstructorRepository, InstructorRepository>();
             services.AddScoped<IVideoMetadataRepository, VideoMetadateRepository>();
+            services.AddScoped<IDatabaseSeeder, CourseManagementDbSeeder>();
+
+            
            
             return services;
         }

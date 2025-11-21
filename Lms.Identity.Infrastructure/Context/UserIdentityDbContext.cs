@@ -7,6 +7,6 @@ namespace Lms.Identity.Infrastructure.Context
     {
         public UserIdentityDbContext(DbContextOptions<UserIdentityDbContext> options) :base(options) { }
 
-        public DbSet<IdentityOutboxMessage> IdentityOutboxMessages => Set<IdentityOutboxMessage>();
+        
     }
 }

@@ -24,7 +24,7 @@ namespace Lms.Enrollment.Infrastructure.Outbox
                 try
                 {
                     using var scope = _serviceProvider.CreateAsyncScope();
-                    var dbContext = scope.ServiceProvider.GetRequiredService<EnrollmentDbContext>();
+                    var dbContext = scope.ServiceProvider.GetRequiredService<EnrollmentSupportDbContext>();
                     //var outbox = scope.ServiceProvider.GetRequiredService<IIntegrationEventPublisher>();
                     var publish = scope.ServiceProvider.GetRequiredService<MediatRIntegrationEventPublisher>();
 

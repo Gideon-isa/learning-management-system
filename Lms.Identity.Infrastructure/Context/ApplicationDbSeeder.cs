@@ -8,11 +8,13 @@ namespace Lms.Identity.Infrastructure.Context
     public class ApplicationDbSeeder(
         RoleManager<ApplicationRole> roleManager,
         UserManager<ApplicationUser> userManager,
-        UserIdentityDbContext applicationDbContext)
+        UserIdentityDbContext applicationDbContext,
+        IdentitySupportDbContext identitySupportDbContext)
     {
         private readonly RoleManager<ApplicationRole> _roleManager = roleManager;   
         private readonly UserManager<ApplicationUser> _userManager = userManager;
         private readonly UserIdentityDbContext _applicationDbContext = applicationDbContext;
+        private readonly IdentitySupportDbContext _identitySupportDbContext = identitySupportDbContext;
 
         /// <summary>
         /// 
@@ -23,9 +25,11 @@ namespace Lms.Identity.Infrastructure.Context
         {
             if (_applicationDbContext.Database.GetMigrations().Any())
             { 
-                if((await _applicationDbContext.Database.GetPendingMigrationsAsync(cancellation)).Any())
+                if((await _applicationDbContext.Database.GetPendingMigrationsAsync(cancellation)).Any() 
+                    || (await _identitySupportDbContext.Database.GetPendingMigrationsAsync(cancellation)).Any())
                 {
                     await _applicationDbContext.Database.MigrateAsync(cancellation);
+                    await _identitySupportDbContext.Database.MigrateAsync(cancellation);
                 }
 
                 // seeding

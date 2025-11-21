@@ -6,18 +6,18 @@ namespace Lms.Identity.Infrastructure.Services.Outbox
 {
     public class IdentityOutboxService : IIdentityIntegrationEventPublisher
     {
-        private UserIdentityDbContext _userIdentityDbContext;
+        private IdentitySupportDbContext _identitySupportDbContext;
 
-        public IdentityOutboxService(UserIdentityDbContext userIdentityDbContext)
+        public IdentityOutboxService(IdentitySupportDbContext identitySupportDbContex)
         {
-            _userIdentityDbContext = userIdentityDbContext;
+            _identitySupportDbContext = identitySupportDbContex;
         }
 
         public async Task PublishAsync<TIntegrationEvent>(TIntegrationEvent integrationEvent, CancellationToken cancellationToken = default) where TIntegrationEvent : class
         {
             var outboxMessage = new IdentityOutboxMessage(integrationEvent);
-            await _userIdentityDbContext.IdentityOutboxMessages.AddAsync(outboxMessage);
-            await _userIdentityDbContext.SaveChangesAsync(cancellationToken);
+            await _identitySupportDbContext.IdentityOutboxMessages.AddAsync(outboxMessage);
+            await _identitySupportDbContext.SaveChangesAsync(cancellationToken);
         }
     }
 }
