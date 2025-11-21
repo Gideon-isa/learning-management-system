@@ -3,12 +3,15 @@ using Lms.Api.Middleware;
 using Lms.Assessment.Application;
 using Lms.ContentDelivery.Application;
 using Lms.ContentDelivery.Application.Dependency;
+using Lms.ContentDelivery.Infrastructure.DataContext;
 using Lms.ContentDelivery.Infrastructure.DI;
 using Lms.CourseManagement.Application;
 using Lms.CourseManagement.Application.DI;
+using Lms.CourseManagement.Infrastructure.DbContex;
 using Lms.CourseManagement.Infrastructure.DI;
 using Lms.Enrollment.Application;
 using Lms.Enrollment.Application.DI;
+using Lms.Enrollment.Infrastructure.DataContext;
 using Lms.Enrollment.Infrastructure.DI;
 using Lms.Identity.Application;
 using Lms.Identity.Application.DependencyInjection;
@@ -69,6 +72,14 @@ app.UseExceptionHandler();
 try
 {
     await app.AddDatabaseInintializerAsync();
+
+    await app.UseDatabaseSeedersAsync(
+    [
+        typeof(EnrollmentDbSeeder),
+        typeof(CourseContentDbSeeder),
+        typeof(CourseManagementDbSeeder),
+    ]);
+   
 }
 catch (Exception ex)
 {

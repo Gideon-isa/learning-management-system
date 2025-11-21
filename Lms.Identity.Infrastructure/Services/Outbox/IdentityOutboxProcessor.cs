@@ -24,7 +24,7 @@ namespace Lms.Identity.Infrastructure.Services.Outbox
                 try
                 {
                     using var scope = _serviceProvider.CreateAsyncScope();
-                    var dbContext = scope.ServiceProvider.GetRequiredService<UserIdentityDbContext>();
+                    var dbContext = scope.ServiceProvider.GetRequiredService<IdentitySupportDbContext>();
                     var publish = scope.ServiceProvider.GetRequiredService<MediatRIntegrationEventPublisher>();
 
                     // Pick pending or failed events ready for retry

@@ -3,6 +3,7 @@ using Lms.Enrollment.Domain.Respositories;
 using Lms.Enrollment.Infrastructure.DataContext;
 using Lms.Enrollment.Infrastructure.Outbox;
 using Lms.Enrollment.Infrastructure.Persistence;
+using Lms.Shared.Abstractions.DatabaseSeeder;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -17,15 +18,20 @@ namespace Lms.Enrollment.Infrastructure.DI
             {
                 options.UseSqlServer(configuration.GetConnectionString("DefaultConnection"));
             });
+            services.AddDbContext<EnrollmentSupportDbContext>(options =>
+            {
+                options.UseSqlServer(configuration.GetConnectionString("DefaultConnection"));
+            });
 
             services.AddScoped<IAvailableCoursesRepository, AvailableCourseRepository>()
                     .AddScoped<ICourseEnrollmentRespository, CourseEnrollmentRepository>()
                     .AddScoped<IStudentRepository, StudentRepository>()
                     .AddScoped<IEnrollmentUnitOfWork, UnitOfWork>()
                     .AddScoped<IEnrollmentIntegrationEventPublisher, OutboxService>()
-                    .AddHostedService<OutboxProcessor>();
-
+                    .AddHostedService<OutboxProcessor>()
+                    .AddScoped<IDatabaseSeeder, EnrollmentDbSeeder>();
             return services;
         }
+
     }
 }

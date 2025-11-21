@@ -18,6 +18,6 @@ namespace Lms.Enrollment.Infrastructure.DataContext
         public DbSet<AvailableCourse> AvailableCourses => Set<AvailableCourse>();
         public DbSet<CourseEnrollment> CourseEnrollments => Set<CourseEnrollment>();
         public DbSet<Student> Students => Set<Student>(); 
-        public DbSet<EnrollmentOutboxMessage> EnrollmentOutboxMessages => Set<EnrollmentOutboxMessage>();
+        
     }
 }
