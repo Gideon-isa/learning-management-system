@@ -22,7 +22,7 @@ namespace Lms.Shared.Application.Validations
             if (validator is not null)
             {
                 var result = await validator.ValidateAsync(command, token);
-                if (result.IsValid)
+                if (!result.IsValid)
                 {
                     throw new ValidationException(result.Errors);
                 }

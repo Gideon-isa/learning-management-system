@@ -1,5 +1,5 @@
-﻿using Lms.Shared.Abstractions.Interfaces.Request;
-using Lms.Shared.Application.CustomMediator.Interfaces.Mediator;
+﻿using Lms.Shared.Abstractions.Interfaces.Mediator;
+using Lms.Shared.Abstractions.Interfaces.Request;
 using Lms.Shared.Application.CustomMediator.Interfaces.Notification;
 using Microsoft.Extensions.DependencyInjection;
 

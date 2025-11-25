@@ -1,6 +1,6 @@
-﻿using Lms.Shared.Abstractions.Messaging;
+﻿using Lms.Shared.Abstractions.Interfaces.Mediator;
+using Lms.Shared.Abstractions.Messaging;
 using Lms.Shared.Application;
-using Lms.Shared.Application.CustomMediator.Interfaces.Mediator;
 using Lms.Shared.IntegrationEvents;
 
 namespace Lms.Shared.IntegrationEvents.Integration

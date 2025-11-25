@@ -18,10 +18,7 @@ namespace Lms.Shared.Application
         {
             // Adding the Application config. values
             services.OptionsConfigure<AppOptions>(config);
-
             services.AddScoped<ICommandDispatcher, CommandDispatcher>();
-
-
             // Registers Fluent Validation
             var assembly = Assembly.GetExecutingAssembly();
             services.AddValidatorsFromAssembly(assembly)
@@ -32,7 +29,6 @@ namespace Lms.Shared.Application
             // Registering the Validation Pipeline   
             services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationPipelineBehaviour<,>));
             services.AddScoped<IDomainEventDispatcher, DomainEventDispatcher>();
-            //services.AddTransient<SortMappingProvider>();
             return services;
         }
 

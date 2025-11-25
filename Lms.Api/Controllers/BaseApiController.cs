@@ -1,4 +1,4 @@
-﻿using Lms.Shared.Application.CustomMediator.Interfaces.Mediator;
+﻿using Lms.Shared.Abstractions.Interfaces.Mediator;
 using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;

@@ -21,7 +21,7 @@ namespace Lms.Api.Controllers
         /// <param name="commandDispatcher"></param>
         /// <param name="cancellationToken"></param>
         /// <returns></returns>
-        [ShouldHavePermission(PermissionConstants.Create, LearningFeatureConstants.Course)]
+        //[ShouldHavePermission(PermissionConstants.Create, LearningFeatureConstants.Course)]
         [HttpPost]
         public async Task<IActionResult> CreateCourseAsync([FromBody] CreateCourseRequest courseRequest,
             [FromServices] ICommandDispatcher commandDispatcher, CancellationToken cancellationToken)
