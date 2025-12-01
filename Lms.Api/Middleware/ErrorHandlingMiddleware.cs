@@ -1,5 +1,7 @@
-﻿using Lms.Identity.Application.Exceptions;
+﻿using FluentValidation;
+using Lms.Identity.Application.Exceptions;
 using Lms.SharedKernel.Common.Wrappers;
+using Lms.SharedKernel.Domain;
 using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using System.Net;
@@ -19,6 +21,8 @@ namespace Lms.Api.Middleware
 
             var (statusCode, errorMessage) = exception switch
             {
+                DomainException dm => ((int)StatusCodes.Status403Forbidden, [dm.Message]),
+                ValidationException ve => ((int)StatusCodes.Status400BadRequest, [ve.Message]),
                 ConflictException ce => ((int)ce.StatusCode,  ce.ErrorMessages),
                 NotFoundException nfe => ((int)nfe.StatusCode, nfe.ErrorMessages),
                 ForbiddenException fe => ((int)fe.StatusCode, fe.ErrorMessages ),
@@ -43,9 +47,7 @@ namespace Lms.Api.Middleware
 
             httpContext.Response.StatusCode = statusCode;
             httpContext.Response.ContentType = "application/json";
-
             await httpContext.Response.WriteAsJsonAsync(problemDetails, cancellationToken);
-
             return true;
         }
 

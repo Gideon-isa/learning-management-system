@@ -1,4 +1,4 @@
-﻿using Lms.Shared.Application.CustomMediator.Interfaces.Mediator;
+﻿using Lms.Shared.Abstractions.Interfaces.Mediator;
 using Lms.Shared.Application.CustomMediator.Interfaces.Notification;
 using Lms.SharedKernel.Application;
 using Lms.SharedKernel.Domain.Abstractions;

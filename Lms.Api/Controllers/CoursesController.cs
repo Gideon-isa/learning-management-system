@@ -3,6 +3,7 @@ using Lms.CourseManagement.Application.Features.Course.Commands.PublishCourse;
 using Lms.CourseManagement.Application.Features.Course.Queries.GetAllCourse;
 using Lms.CourseManagement.Application.Features.Course.Queries.GetCourseById;
 using Lms.CourseManagement.Application.Features.CourseFeatures.Commands.CreateCourse;
+using Lms.CourseManagement.Application.Features.CourseFeatures.Commands.DeleteCourse;
 using Lms.Identity.Infrastructure.Identity.Auth;
 using Lms.Shared.Application.Contracts;
 using Lms.Shared.Security.Permissions;
@@ -21,7 +22,7 @@ namespace Lms.Api.Controllers
         /// <param name="commandDispatcher"></param>
         /// <param name="cancellationToken"></param>
         /// <returns></returns>
-        [ShouldHavePermission(PermissionConstants.Create, LearningFeatureConstants.Course)]
+        //[ShouldHavePermission(PermissionConstants.Create, LearningFeatureConstants.Course)]
         [HttpPost]
         public async Task<IActionResult> CreateCourseAsync([FromBody] CreateCourseRequest courseRequest,
             [FromServices] ICommandDispatcher commandDispatcher, CancellationToken cancellationToken)
@@ -40,7 +41,7 @@ namespace Lms.Api.Controllers
         /// <param name="courseId"></param>
         /// <param name="cancellationToken"></param>
         /// <returns></returns>
-        [ShouldHavePermission(PermissionConstants.Update, LearningFeatureConstants.Course)]
+        //[ShouldHavePermission(PermissionConstants.Update, LearningFeatureConstants.Course)]
         [HttpPut("{courseId}/publish")]
         public async Task<IActionResult> PublishCourse([FromRoute] Guid courseId, CancellationToken cancellationToken)
         {
@@ -57,7 +58,7 @@ namespace Lms.Api.Controllers
         /// <param name="courseId"></param>
         /// <param name="cancellationToken"></param>
         /// <returns></returns>
-        [ShouldHavePermission(PermissionConstants.Read, LearningFeatureConstants.Course)]
+        //[ShouldHavePermission(PermissionConstants.Read, LearningFeatureConstants.Course)]
         [HttpGet("{courseId}")]
         public async Task<IActionResult> GetCourseById([FromRoute] Guid courseId, CancellationToken cancellationToken)
         {
@@ -91,11 +92,12 @@ namespace Lms.Api.Controllers
         /// <param name="courseId"></param>
         /// <param name="cancellationToken"></param>
         /// <returns></returns>
-        [ShouldHavePermission(PermissionConstants.Delete, LearningFeatureConstants.Course)]
+        //[ShouldHavePermission(PermissionConstants.Delete, LearningFeatureConstants.Course)]
         [HttpDelete("{courseId}")]
         public async Task<IActionResult> DeleteCourse([FromRoute] Guid courseId, CancellationToken cancellationToken)
         {
-            var cmd = courseId.Adapt<PublishCourseCommand>();
+            var cmd = new DeleteCourseCommand { CourseId = courseId };
+            //var cmd = courseId.Adapt<PublishCourseCommand>();
             var response = await CustomMediator.Send(cmd, cancellationToken);
             if (response.IsSuccessful)
                 return NoContent();

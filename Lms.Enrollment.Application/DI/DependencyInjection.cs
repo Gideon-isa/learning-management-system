@@ -2,9 +2,9 @@
 using Lms.Enrollment.Application.EventHandlers;
 using Lms.Enrollment.Application.Mapping;
 using Lms.Enrollment.Domain.Services;
+using Lms.Shared.Abstractions.Interfaces.Mediator;
 using Lms.Shared.Application;
 using Lms.Shared.Application.CustomMediator;
-using Lms.Shared.Application.CustomMediator.Interfaces.Mediator;
 using Lms.Shared.Application.CustomMediator.Interfaces.Notification;
 using Microsoft.Extensions.DependencyInjection;
 using System.Reflection;

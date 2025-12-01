@@ -1,4 +1,5 @@
 ﻿using Lms.CourseManagement.Domain.Events;
+using Lms.CourseManagement.Domain.Exceptions;
 using Lms.SharedKernel.Domain;
 
 namespace Lms.CourseManagement.Domain.Entities
@@ -76,18 +77,25 @@ namespace Lms.CourseManagement.Domain.Entities
 
             // Add a kernel-domain event to the list of events
             // This adds the event to be published internal CoursePublishEvent is of type IDomain\
-            AddDomainEvent(new CoursePublishedEvent(Id, CourseTitle, CourseCode, Category ,InstructorId, PublishedOn.Value, [..Modules]));
+            AddDomainEvent(new CoursePublishedEvent(Id, CourseTitle, CourseCode, Category, 
+                InstructorId, PublishedOn.Value, [..Modules]));
         }
 
         public void Archive()
         {
             if (Status != CourseStatus.Published)
-            {
                 throw new InvalidOperationException("Only published course can be archived");
-            }
             Status = CourseStatus.Archived;
         }
-        public void MarkAsDeleted() => IsDeleted = true;
+
+        public void MarkAsDeleted() 
+        {
+            if (IsPublishd()) 
+                throw new PublishedCourseException("Published course already published and cannot be deleted.");
+            IsDeleted = true; 
+        }
+
+        public bool IsPublishd() => Status == CourseStatus.Published;
 
         public CourseModule GetModuleById(Guid moduleId)
         {
