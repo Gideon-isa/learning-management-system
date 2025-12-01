@@ -22,6 +22,7 @@ namespace Lms.CourseManagement.Application.Features.CourseFeatures.Commands.Dele
                 // TODO Define Custom Exceptions
                 throw new Exception();
             }
+
             course.MarkAsDeleted();
             await _courseRepository.UpdateAsync(course, cancellationToken);
             return await ResponseWrapper.SuccessAsync("Deleted Successfully");
