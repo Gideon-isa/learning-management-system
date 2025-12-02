@@ -18,21 +18,10 @@ namespace Lms.CourseManagement.Application.DI
     {
         public static IServiceCollection AddCourseManagementApplicationServices(this IServiceCollection services)
         {
-            // You can add application-specific services here in the future
-            //var assembly = Assembly.GetExecutingAssembly();
-
-            //services.AddDomainEventDispatcher();
             services.AddScoped<IFileStorageService, LocalFileStorageService>();
             services.AddScoped<IMimeTypeService, MimeTypeService>();
             services.AddTransient<SortMappingProvider>();
-
-            var assembly = typeof(DependencyInjection).Assembly;
-
-            services.AddMediatR(config => config.RegisterServicesFromAssembly(assembly))
-                    .AddValidatorsFromAssembly(assembly);
-
             services.AddTransient<ICourseSortMappingDefinition, CourseMappingDefinition<GetCoursesQuery, Domain.Entities.Course>>(_ => CourseMapping.Sortmapping);
-
             return services;
         }
 

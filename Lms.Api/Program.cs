@@ -1,3 +1,4 @@
+using FluentValidation;
 using Lms.Api.DependencyInjections;
 using Lms.Api.Middleware;
 using Lms.Assessment.Application;
@@ -59,6 +60,14 @@ builder.Services.Scan(scan => scan
     .AddClasses(classes => classes.AssignableTo(typeof(ICustomNotificationHandler<>)))
     .AsImplementedInterfaces()
     .WithScopedLifetime());
+
+builder.Services.AddValidatorsFromAssemblies([
+    typeof(IEnrollmentApplicationMarker).Assembly,
+    typeof(ICourseManagementMarker).Assembly,
+    typeof(IAssessmentApplicationMarker).Assembly,
+    typeof(IIdentityApplicationMarker).Assembly,
+    typeof(ICourseContentApplicationMarker).Assembly
+]);
 
 builder.Services.AddControllers();
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
