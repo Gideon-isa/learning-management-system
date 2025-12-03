@@ -20,7 +20,7 @@ namespace Lms.ContentDelivery.Infrastructure.Persistence
             return courseContent;
         }
 
-        public async Task<CourseContent?> GetCourseContentByCourseId(Guid courseId, CancellationToken cancellationToken)
+        public async Task<CourseContent?> GetCourseContentByCourseIdAsync(Guid courseId, CancellationToken cancellationToken)
         {
 
             return await _context.CourseContentDelivery

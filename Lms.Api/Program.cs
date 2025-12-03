@@ -73,7 +73,6 @@ builder.Services.AddControllers();
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddOpenApi();
 
-
 var app = builder.Build();
 
 // Use the handler early in the pipline
@@ -81,18 +80,15 @@ app.UseExceptionHandler();
 try
 {
     await app.AddDatabaseInintializerAsync();
-
     await app.UseDatabaseSeedersAsync(
     [
         typeof(EnrollmentDbSeeder),
         typeof(CourseContentDbSeeder),
         typeof(CourseManagementDbSeeder),
     ]);
-   
 }
 catch (Exception ex)
 {
-
     throw;
 }
 

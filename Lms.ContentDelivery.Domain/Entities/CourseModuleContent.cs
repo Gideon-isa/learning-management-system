@@ -12,13 +12,14 @@ namespace Lms.ContentDelivery.Domain.Entities
 
         private CourseModuleContent() { } // EF core
 
-        private CourseModuleContent(string title, string description)
+        private CourseModuleContent(Guid id, string title, string description)
         {
+            Id = id;
             Title = title;
             Description = description;
         }
 
-        public static CourseModuleContent Create(string title, string description)
+        public static CourseModuleContent Create(Guid id, string title, string description)
         {
 
             if (string.IsNullOrWhiteSpace(title))
@@ -26,7 +27,7 @@ namespace Lms.ContentDelivery.Domain.Entities
                 throw new ArgumentException("Title is required. ", nameof(title));
             }
             //Id = Guid.NewGuid();
-            return new CourseModuleContent(title, description);
+            return new CourseModuleContent(id, title, description);
         }
 
         public void AssignOrder(int order) => Order = order;
