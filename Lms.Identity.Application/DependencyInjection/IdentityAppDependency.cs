@@ -12,8 +12,7 @@ namespace Lms.Identity.Application.DependencyInjection
     {
         public static IServiceCollection AddIdentityApplicationServices(this IServiceCollection services)
         {
-            return services.AddMediatetorService();
-                //.AddCustomMediator(typeof(IdentityAppDependency).Assembly);
+            return services;
         }
     }
 }

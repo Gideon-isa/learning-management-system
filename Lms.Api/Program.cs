@@ -1,3 +1,4 @@
+using FluentValidation;
 using Lms.Api.DependencyInjections;
 using Lms.Api.Middleware;
 using Lms.Assessment.Application;
@@ -60,10 +61,17 @@ builder.Services.Scan(scan => scan
     .AsImplementedInterfaces()
     .WithScopedLifetime());
 
+builder.Services.AddValidatorsFromAssemblies([
+    typeof(IEnrollmentApplicationMarker).Assembly,
+    typeof(ICourseManagementMarker).Assembly,
+    typeof(IAssessmentApplicationMarker).Assembly,
+    typeof(IIdentityApplicationMarker).Assembly,
+    typeof(ICourseContentApplicationMarker).Assembly
+]);
+
 builder.Services.AddControllers();
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddOpenApi();
-
 
 var app = builder.Build();
 
@@ -72,18 +80,15 @@ app.UseExceptionHandler();
 try
 {
     await app.AddDatabaseInintializerAsync();
-
     await app.UseDatabaseSeedersAsync(
     [
         typeof(EnrollmentDbSeeder),
         typeof(CourseContentDbSeeder),
         typeof(CourseManagementDbSeeder),
     ]);
-   
 }
 catch (Exception ex)
 {
-
     throw;
 }
 

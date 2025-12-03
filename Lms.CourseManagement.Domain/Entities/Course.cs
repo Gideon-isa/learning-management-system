@@ -103,6 +103,18 @@ namespace Lms.CourseManagement.Domain.Entities
                 throw new InvalidOperationException("Module not found in this course");
             return module;
         }
+
+        public void RemoveModule(Guid moduleId)
+        {
+            var module = _modules.FirstOrDefault(m => m.Id == moduleId) 
+                ?? throw DomainException.Create<CourseModuleNotFoundException>("module not found");
+
+            _modules.Remove(module);
+
+            if (IsPublishd())
+                AddDomainEvent(new DeletedPublishedCourseModuleEvent(Id, moduleId));
+        }
+
     }
 
     public enum CourseStatus

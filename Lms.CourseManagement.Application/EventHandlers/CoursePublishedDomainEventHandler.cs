@@ -35,9 +35,9 @@ namespace Lms.CourseManagement.Application.EventHandlers
                         lesson.Title,
                         lesson.Description,
                         lesson.Duration,
-                        [..lesson.Images.Select(img => new PublishedLessonImageDto(img.FileName, img.Path, img.Caption)) ],
-                        [.. lesson.Tags.Select(tag => new PublishedLessonTagDto(tag.TagId, tag.TagName))],
-                        [.. lesson.Videos.Select(vid => new PublishedLessonVideoDto(vid.VideoId, vid.Path, vid.Title, vid.Thumbnail, vid.Description))]
+                        [..lesson.Images.Select(img => new PublishedLessonImageDto(img.FileName, img.Path, img.Caption))],
+                        [..lesson.Tags.Select(tag => new PublishedLessonTagDto(tag.TagId, tag.TagName))],
+                        [..lesson.Videos.Select(vid => new PublishedLessonVideoDto(vid.VideoId, vid.Path, vid.Title, vid.Thumbnail, vid.Description))]
                         )) ]));
 
             var integrationEvent = new CoursePublishedIntegrationEvent(

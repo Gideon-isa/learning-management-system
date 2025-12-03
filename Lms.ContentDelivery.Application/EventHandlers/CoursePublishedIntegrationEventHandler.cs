@@ -34,7 +34,7 @@ namespace Lms.ContentDelivery.Application.EventHandlers
             foreach (var module in moduleEvents)
             {
                 // creating a courseModule
-                var newCourseModule = CourseModuleContent.Create(module.Title, module.Description);
+                var newCourseModule = CourseModuleContent.Create(module.ModuleId, module.Title, module.Description);
 
                 // for each lesson, creating lessons and videos
                 foreach (var lesson in module.Lessons)

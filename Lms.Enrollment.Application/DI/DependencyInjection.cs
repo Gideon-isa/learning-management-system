@@ -15,20 +15,8 @@ namespace Lms.Enrollment.Application.DI
     {
         public static IServiceCollection AddEnrollmentApplication(this IServiceCollection services)
         {
-            var assembly = Assembly.GetExecutingAssembly();
-
-            // 1️⃣ Register all ICustomNotificationHandlers in this assembly
-            //services.Scan(scan => scan
-            //    .FromAssemblies(assembly)
-            //    .AddClasses(classes => classes.AssignableTo(typeof(CoursePublishedIntegrationEventHandler)))
-            //    .AsImplementedInterfaces()
-            //    .WithScopedLifetime());
-
-            // 2️⃣ Register the MiniMediator and supporting types (if not already in Shared.Application)
+            // Register the MiniMediator and supporting types (if not already in Shared.Application)
             services.AddScoped<ICustomMediator, MiniMediator>();
-            
-            //services.AddScoped<IDomainEnrollmentService, EnrollmentService>();
-            //services.AddCustomMediator(typeof(CoursePublishedIntegrationEventHandler).Assembly);
 
             // Registering the Mapster
             EnrollmentMappingConfig.RegisterEnrollmentConfig();

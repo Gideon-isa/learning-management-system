@@ -43,5 +43,12 @@ namespace Lms.ContentDelivery.Domain.Entities
             module.AssignOrder(_modules.Count + 1);
             _modules.Add(module);
         }
+
+        public void RemoveModuleFromCourse(Guid moduleId)
+        {
+            var module = _modules.FirstOrDefault(m => m.Id == moduleId) ??
+                throw new InvalidOperationException("Module not found in this course content");
+            _modules.Remove(module);
+        }
     }
 }

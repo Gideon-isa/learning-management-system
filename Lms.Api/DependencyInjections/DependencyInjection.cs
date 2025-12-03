@@ -6,7 +6,7 @@ namespace Lms.Api.DependencyInjections
     {
         public static IServiceCollection AddApiApplicationServices(this IServiceCollection services, IConfiguration configuration)
         {
-          
+            
             return services
                 .AddOpenApiDocumentation(configuration);      
         }
