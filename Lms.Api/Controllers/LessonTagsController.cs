@@ -64,7 +64,7 @@ namespace Lms.Api.Controllers
         public async Task<IActionResult> GetAllLessons([FromServices] ICommandDispatcher commandDispatcher, CancellationToken cancellationToken)
         {
             var query = new GetAllLessonTagsQuery{ };
-            await commandDispatcher.DispatcherAsync(query, cancellationToken);
+            //await commandDispatcher.DispatcherAsync(query, cancellationToken);
             var response = await CustomMediator.Send(query);
             if (response.IsSuccessful)
             {

@@ -8,7 +8,7 @@ namespace Lms.CourseManagement.Application.Features.Course.DTO
         public string CourseTitle { get; set; }
         public string CourseCode { get; set; }
         public string Description { get; set; }
-        public string Category { get; set; }
+        public Guid CategoryId { get; set; }
         public CourseStatus Status { get; set; }
         public Guid InstructorId { get; set; }
         public DateTime? PublishedOn { get;  set; }

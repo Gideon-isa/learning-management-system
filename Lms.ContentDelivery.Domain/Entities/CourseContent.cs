@@ -8,7 +8,7 @@ namespace Lms.ContentDelivery.Domain.Entities
         public Guid CourseId { get; private set; }
         public string CourseTitle { get; private set; }
         public string CourseCode { get; private set; }
-        public string Category { get; private set; }
+        public string CourseCategoryCode { get; private set; }
         public Guid InstructorId { get; private set; }
 
         public readonly List<CourseModuleContent> _modules = [];
@@ -21,16 +21,16 @@ namespace Lms.ContentDelivery.Domain.Entities
             CourseId = courseId;    
             CourseTitle = courseTitle;
             CourseCode = courseCode;
-            Category = category;
+            CourseCategoryCode = category;
             InstructorId = instructorId;
         }
 
-        public static CourseContent Create(Guid id, string courseTitle, string courseCode, string category, Guid instructorId)
+        public static CourseContent Create(Guid id, string courseTitle, string courseCode, string courseCategoryCode, Guid instructorId)
         {
             if (string.IsNullOrEmpty(courseTitle) || string.IsNullOrEmpty(courseCode))
                 throw new Exception("Course title or course code cannot be null");
 
-            return new CourseContent(id, courseTitle, courseCode, category, instructorId);
+            return new CourseContent(id, courseTitle, courseCode, courseCategoryCode, instructorId);
         }
 
         public void AddModuleToCourse(CourseModuleContent module)

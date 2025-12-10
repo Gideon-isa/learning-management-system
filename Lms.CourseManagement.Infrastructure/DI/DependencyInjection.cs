@@ -35,6 +35,8 @@ namespace Lms.CourseManagement.Infrastructure.DI
             services.AddScoped<IInstructorRepository, InstructorRepository>();
             services.AddScoped<IVideoMetadataRepository, VideoMetadateRepository>();
             services.AddScoped<IDatabaseSeeder, CourseManagementDbSeeder>();
+            services.AddScoped<ICourseCategoryRepository, CourseCategoryRepository>();
+
 
             
            

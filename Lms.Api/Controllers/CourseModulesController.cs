@@ -30,7 +30,7 @@ namespace Lms.Api.Controllers
 
             if (response.IsSuccessful)
             {
-                return CreatedAtAction(nameof(CreateModule), new { id = response.Data });
+                return CreatedAtAction(nameof(CreateModule), new { id = response.Data.Id }, response);
             }
             return BadRequest(response);
         }

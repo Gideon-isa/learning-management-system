@@ -1,6 +1,5 @@
 ﻿using Lms.CourseManagement.Application.Abstractions;
 using Lms.CourseManagement.Application.Services;
-using Lms.Shared.Abstractions.Sorting;
 using Lms.Shared.Application.Sorting;
 
 namespace Lms.CourseManagement.Application.Features.CourseFeatures.Sorting
@@ -19,16 +18,14 @@ namespace Lms.CourseManagement.Application.Features.CourseFeatures.Sorting
                 .OfType<CourseMappingDefinition<TSource, TDestination>>()
                 .FirstOrDefault();
 
-            if (sortMappingDefination == null) 
-            {
+            if (sortMappingDefination == null)
                 throw new InvalidOperationException($"The mapping from '{typeof(TSource).Name}' into '{typeof(TDestination).Name}' isn't defined");
 
-            };         
             return sortMappingDefination.Mappings;
         }
 
         /// <summary>
-        /// 
+        /// Validating the sort parameter (sort field) 
         /// </summary>
         /// <typeparam name="TSource"></typeparam>
         /// <typeparam name="TDestination"></typeparam>
@@ -36,7 +33,7 @@ namespace Lms.CourseManagement.Application.Features.CourseFeatures.Sorting
         /// <returns></returns>
         public bool ValidateMappings<TSource, TDestination>(string? sort)
         {
-            if(string.IsNullOrWhiteSpace(sort)) 
+            if (string.IsNullOrWhiteSpace(sort))
                 return true;
             var sortFields = sort
                 .Split(',')

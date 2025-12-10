@@ -26,7 +26,7 @@ namespace Lms.ContentDelivery.Application.EventHandlers
 
             // Get the published-course from the Event Args
             var courseEvent = notification.IntegrationEvent;
-            var course = CourseContent.Create(courseEvent.CourseId, courseEvent.CourseTitle, courseEvent.CourseCode, courseEvent.Category, courseEvent.InstructorId);
+            var course = CourseContent.Create(courseEvent.CourseId, courseEvent.CourseTitle, courseEvent.CourseCode, courseEvent.CourseCategoryCode, courseEvent.InstructorId);
 
             // get the published-module from the Event Args
             var moduleEvents = notification.IntegrationEvent.ModuleEvent;

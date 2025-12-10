@@ -7,8 +7,14 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Features\CourseFeatures\Queries\GetCourseCode\**" />
+    <Compile Remove="Features\CourseFeatures\Queries\SearchCourseQuery\**" />
     <Compile Remove="Integration\**" />
+    <EmbeddedResource Remove="Features\CourseFeatures\Queries\GetCourseCode\**" />
+    <EmbeddedResource Remove="Features\CourseFeatures\Queries\SearchCourseQuery\**" />
     <EmbeddedResource Remove="Integration\**" />
+    <None Remove="Features\CourseFeatures\Queries\GetCourseCode\**" />
+    <None Remove="Features\CourseFeatures\Queries\SearchCourseQuery\**" />
     <None Remove="Integration\**" />
   </ItemGroup>
 
@@ -26,8 +32,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Features\CourseFeatures\Queries\GetCourseCode\" />
-    <Folder Include="Features\CourseFeatures\Queries\SearchCourseQuery\" />
+    <Folder Include="Features\CourseCategory\Command\UpdateCategory\" />
+    <Folder Include="Features\CourseFeatures\Queries\NewFolder1\" />
   </ItemGroup>
 
 </Project>

@@ -1,9 +1,10 @@
-﻿using Lms.Shared.Abstractions.Interfaces.Request;
+﻿using Lms.CourseManagement.Application.Features.LessonFeatures.Dto;
+using Lms.Shared.Abstractions.Interfaces.Request;
 using Lms.SharedKernel.Common.Wrappers;
 
 namespace Lms.CourseManagement.Application.Features.Lesson.Command
 {
-    public class CreateLessonCommand : ICustomRequest<IResponseWrapper>
+    public class CreateLessonCommand : ICustomRequest<IResponseWrapper<LessonResponse>>
     {
         public Guid CourseId { get; set; }
         public Guid ModuleId { get;  set; }

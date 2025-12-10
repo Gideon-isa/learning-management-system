@@ -1,16 +1,11 @@
-﻿using FluentValidation;
-using Lms.CourseManagement.Application.Abstractions;
-using Lms.CourseManagement.Application.Features.Course.DTO;
+﻿using Lms.CourseManagement.Application.Abstractions;
 using Lms.CourseManagement.Application.Features.Course.Queries.GetAllCourse;
-using Lms.CourseManagement.Application.Features.CourseFeatures.Commands.CreateCourse;
 using Lms.CourseManagement.Application.Features.CourseFeatures.Mappings;
 using Lms.CourseManagement.Application.Features.CourseFeatures.Sorting;
-using Lms.CourseManagement.Application.Features.Module.Commands;
+using Lms.CourseManagement.Application.Features.LessonFeatures.Mappings;
 using Lms.CourseManagement.Application.Services;
 using Lms.Shared.Abstractions.FileStorage;
-using Lms.Shared.Application.Sorting;
 using Microsoft.Extensions.DependencyInjection;
-using System.Reflection;
 
 namespace Lms.CourseManagement.Application.DI
 {
@@ -22,6 +17,8 @@ namespace Lms.CourseManagement.Application.DI
             services.AddScoped<IMimeTypeService, MimeTypeService>();
             services.AddTransient<SortMappingProvider>();
             services.AddTransient<ICourseSortMappingDefinition, CourseMappingDefinition<GetCoursesQuery, Domain.Entities.Course>>(_ => CourseMapping.Sortmapping);
+            CourseMapsterConfig.RegisterCourseMappings();
+            LessonMapsterConfig.RegisterLessonMappings();
             return services;
         }
 

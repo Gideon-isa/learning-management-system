@@ -12,7 +12,7 @@ namespace Lms.Api.Controllers
     public class LessonsController : BaseApiController
     {
         /// <summary>
-        /// 
+        ///  Create a lesson
         /// </summary>
         /// <param name="createLessonRequest"></param>
         /// <param name="commandDispatcher"></param>
@@ -21,18 +21,18 @@ namespace Lms.Api.Controllers
         [AllowAnonymous]
         [Consumes("multipart/form-data")]
         [HttpPost]
-        public async Task<IActionResult> CreateModule([FromForm] CreateLessonRequest createLessonRequest,
+        public async Task<IActionResult> Create([FromForm] CreateLessonRequest createLessonRequest,
             [FromServices] ICommandDispatcher commandDispatcher, CancellationToken cancellationToken)
          {
             var cmd = createLessonRequest.ToCreateCommand();
             await commandDispatcher.DispatcherAsync(cmd, cancellationToken);
 
-            var response = await CustomMediator.Send(cmd);
+            var response = await CustomMediator.Send(cmd, cancellationToken);
 
             if (response.IsSuccessful)
             {
-                return Ok(response);
-                //return CreatedAtAction(nameof(CreateModule), new { id = response.Data.CourseId });
+                //return Ok(response);
+                return CreatedAtAction(nameof(GetLessonById),"Lessons", new { lessonId = response.Data.Id }, response);
             }
             return BadRequest(response);
         }
@@ -49,7 +49,6 @@ namespace Lms.Api.Controllers
             [FromServices] ICommandDispatcher commandDispatcher, CancellationToken cancellationToken)
         {
             var query = new GetLessonByIdQuery { Id = lessonId };
-            await commandDispatcher.DispatcherAsync(query, cancellationToken);
             var response = await CustomMediator.Send(query);
             if (response.IsSuccessful)
             {
