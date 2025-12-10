@@ -5,6 +5,7 @@ using Lms.CourseManagement.Application.Features.CourseFeatures.Sorting;
 using Lms.CourseManagement.Domain.Filters;
 using Lms.CourseManagement.Domain.Repositories;
 using Lms.Shared.Abstractions.Interfaces.Request;
+using Lms.Shared.Application.Sorting;
 using Lms.SharedKernel.Common.Wrappers;
 using Mapster;
 

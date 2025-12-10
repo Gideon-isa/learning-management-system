@@ -6,24 +6,23 @@
 //    {
 //        /// <summary>
 //        /// 
-//        /// </summary>
+//        /// </summary
 //        /// <typeparam name="TSource"></typeparam>
 //        /// <typeparam name="TDestination"></typeparam>
 //        /// <returns></returns>
-//        public async Task<SortMapping[]> GetMappingsAsync<TSource, TDestination>()
+//        public SortMapping[] GetMappings<TSource, TDestination>()
 //        {
 //            SortMappingDefinition<TSource, TDestination>? sortMappingDefination = sortMappingDefinitions
 //                .OfType<SortMappingDefinition<TSource, TDestination>>()
 //                .FirstOrDefault();
 
-//            if (sortMappingDefination == null) 
+//            if (sortMappingDefination == null)
 //            {
 //                throw new InvalidOperationException($"The mapping from '{typeof(TSource).Name}' into '{typeof(TDestination).Name}' isn't defined");
 
-//            };
-                
-                
-//            return await Task.FromResult(sortMappingDefination.Mappings);
+//            }
+           
+//            return sortMappingDefination.Mappings;
 //        }
 
 //        /// <summary>
@@ -33,9 +32,9 @@
 //        /// <typeparam name="TDestination"></typeparam>
 //        /// <param name="sort"></param>
 //        /// <returns></returns>
-//        public async Task<bool> ValidateMappings<TSource, TDestination>(string? sort)
+//        public bool ValidateMappings<TSource, TDestination>(string? sort)
 //        {
-//            if(string.IsNullOrWhiteSpace(sort)) 
+//            if (string.IsNullOrWhiteSpace(sort))
 //                return false;
 //            var sortFields = sort
 //                .Split(',')
@@ -44,7 +43,7 @@
 //                .Where(f => !string.IsNullOrWhiteSpace(f))
 //                .ToList();
 
-//            SortMapping[] mapping = await GetMappingsAsync<TSource, TDestination>();
+//            SortMapping[] mapping = GetMappings<TSource, TDestination>();
 //            return sortFields.All(f => mapping.Any(m => m.SortField.Equals(f, StringComparison.OrdinalIgnoreCase)));
 //        }
 

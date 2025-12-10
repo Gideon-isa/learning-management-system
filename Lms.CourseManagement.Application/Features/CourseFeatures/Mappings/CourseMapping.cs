@@ -11,7 +11,7 @@ namespace Lms.CourseManagement.Application.Features.CourseFeatures.Mappings
             Mappings = 
             [
                 new SortMapping(nameof(GetCoursesQuery.CourseTitle), nameof(Domain.Entities.Course.CourseTitle)),
-                new SortMapping(nameof(GetCoursesQuery.Category), nameof(Domain.Entities.Course.Category)),
+                //new SortMapping(nameof(GetCoursesQuery.Category), nameof(Domain.Entities.Course.)),
                 new SortMapping(nameof(GetCoursesQuery.CourseCode), nameof(Domain.Entities.Course.CourseCode))
             ] 
         };

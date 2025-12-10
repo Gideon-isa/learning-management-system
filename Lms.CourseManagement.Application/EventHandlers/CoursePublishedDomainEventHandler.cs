@@ -1,5 +1,6 @@
 ﻿using Lms.CourseManagement.Application.Abstractions;
 using Lms.CourseManagement.Domain.Events;
+using Lms.CourseManagement.Domain.Repositories;
 using Lms.Shared.Application.CustomMediator.Interfaces.Notification;
 using Lms.Shared.Application.EventDispatcher;
 using Lms.Shared.IntegrationEvents.courseManagement;
@@ -13,14 +14,17 @@ namespace Lms.CourseManagement.Application.EventHandlers
     public class CoursePublishedDomainEventHandler : ICustomNotificationHandler<DomainEventNotification<CoursePublishedEvent>>
     {
         private readonly ICourseIntegrationEventPublisher _publisher; // for saving into the Outbox table
+        private readonly ICourseCategoryRepository _courseCategoryRepository;
 
-        public CoursePublishedDomainEventHandler(ICourseIntegrationEventPublisher publisher)
+        public CoursePublishedDomainEventHandler(ICourseIntegrationEventPublisher publisher, ICourseCategoryRepository courseCategoryRepository)
         {
             _publisher = publisher;
+            _courseCategoryRepository = courseCategoryRepository;
         }
         public async Task Handle(DomainEventNotification<CoursePublishedEvent> notification, CancellationToken cancellationToken)
         {
             var domainEvent = notification.DomainEvent;
+            var category = await _courseCategoryRepository.GetAsync(domainEvent.CategoryId, cancellationToken);
 
             // Fix: domainEvent.Modules is object[], so cast each element to PublishedModuleDto
             var moduleDtos = domainEvent.Modules
@@ -44,7 +48,7 @@ namespace Lms.CourseManagement.Application.EventHandlers
                 domainEvent.CourseId,
                 domainEvent.CourseTitle,
                 domainEvent.CourseCode,
-                domainEvent.Category,
+                category.Code,
                 domainEvent.InstructorId,
                 domainEvent.PublishedOn,
                 moduleDtos // Pass the list of PublishedModuleDto to the integration event

@@ -1,6 +1,5 @@
 ﻿using Lms.CourseManagement.Domain.Entities;
 using Lms.CourseManagement.Domain.Repositories;
-using Lms.CourseManagement.Infrastructure.Configuration;
 using Lms.CourseManagement.Infrastructure.DbContex;
 
 namespace Lms.CourseManagement.Infrastructure.Persistence

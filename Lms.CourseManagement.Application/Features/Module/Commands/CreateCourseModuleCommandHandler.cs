@@ -30,7 +30,7 @@ namespace Lms.CourseManagement.Application.Features.Module.Commands
             var newCourseModule = CourseModule.Create(request.Title, request.Description);
             course.AddModuleToCourse(newCourseModule);
 
-            await _unitOfWork.SaveChangesAsync();
+            await _unitOfWork.SaveChangesAsync(cancellationToken);
             var response = newCourseModule.Adapt<CourseModuleResponse>();
             return await ResponseWrapper<CourseModuleResponse>.SuccessAsync(data: response, ["Course module created successfully"]);
         }

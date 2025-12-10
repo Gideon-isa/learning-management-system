@@ -32,10 +32,8 @@ namespace Lms.Shared.Application.CustomMediator
 
             var handleMethod = handlerType.GetMethod("Handle");
             if (handleMethod == null)
-            {
                 return;
-            }
-
+            
             // Loop through each handler and invoke its Handle() method
             foreach (var handler in handlers)
             {

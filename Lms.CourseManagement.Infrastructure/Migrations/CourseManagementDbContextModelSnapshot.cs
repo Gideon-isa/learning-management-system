@@ -22,15 +22,48 @@ namespace Lms.CourseManagement.Infrastructure.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
+            modelBuilder.Entity("Lms.CourseManagement.Domain.Entities.Content", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier")
+                        .HasDefaultValueSql("NEWID()");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<TimeSpan>("Duration")
+                        .HasColumnType("time");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<Guid?>("ModuleId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<int>("Order")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ModuleId");
+
+                    b.ToTable("Lessons");
+                });
+
             modelBuilder.Entity("Lms.CourseManagement.Domain.Entities.Course", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<string>("Category")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<Guid>("CategoryId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("CourseCode")
                         .IsRequired()
@@ -64,6 +97,29 @@ namespace Lms.CourseManagement.Infrastructure.Migrations
                         .IsUnique();
 
                     b.ToTable("Courses");
+                });
+
+            modelBuilder.Entity("Lms.CourseManagement.Domain.Entities.CourseCategory", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Code")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("CourseCategories");
                 });
 
             modelBuilder.Entity("Lms.CourseManagement.Domain.Entities.CourseModule", b =>
@@ -145,40 +201,6 @@ namespace Lms.CourseManagement.Infrastructure.Migrations
                     b.ToTable("Instructors");
                 });
 
-            modelBuilder.Entity("Lms.CourseManagement.Domain.Entities.Content", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier")
-                        .HasDefaultValueSql("NEWID()");
-
-                    b.Property<string>("Description")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<TimeSpan>("Duration")
-                        .HasColumnType("time");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
-
-                    b.Property<Guid?>("ModuleId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<int>("Order")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Title")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ModuleId");
-
-                    b.ToTable("Lessons");
-                });
-
             modelBuilder.Entity("Lms.CourseManagement.Domain.Entities.LessonTag", b =>
                 {
                     b.Property<Guid>("Id")
@@ -200,14 +222,6 @@ namespace Lms.CourseManagement.Infrastructure.Migrations
                         .IsUnique();
 
                     b.ToTable("LessonTags");
-                });
-
-            modelBuilder.Entity("Lms.CourseManagement.Domain.Entities.CourseModule", b =>
-                {
-                    b.HasOne("Lms.CourseManagement.Domain.Entities.Course", null)
-                        .WithMany("Modules")
-                        .HasForeignKey("CourseId")
-                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("Lms.CourseManagement.Domain.Entities.Content", b =>
@@ -327,6 +341,14 @@ namespace Lms.CourseManagement.Infrastructure.Migrations
                     b.Navigation("Tags");
 
                     b.Navigation("Videos");
+                });
+
+            modelBuilder.Entity("Lms.CourseManagement.Domain.Entities.CourseModule", b =>
+                {
+                    b.HasOne("Lms.CourseManagement.Domain.Entities.Course", null)
+                        .WithMany("Modules")
+                        .HasForeignKey("CourseId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("Lms.CourseManagement.Domain.Entities.Course", b =>

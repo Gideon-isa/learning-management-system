@@ -11,7 +11,7 @@ namespace Lms.CourseManagement.Domain.Entities
         public string CourseTitle { get; private set; }
         public string CourseCode { get; private set; }
         public string Description { get; private set; }
-        public string Category { get; private set; }
+        public Guid CategoryId { get; private set; }
         public CourseStatus Status { get; private set; }
         public Guid InstructorId { get; private set; }
         public DateTime? PublishedOn { get; private set; }
@@ -21,17 +21,17 @@ namespace Lms.CourseManagement.Domain.Entities
 
         private Course() { } // EF core
 
-        private Course(string courseTitle, string code, string description, string category, Guid instructorId)
+        private Course(string courseTitle, string code, string description, Guid categoryId, Guid instructorId)
         {
             Id = Guid.NewGuid();
             CourseTitle = courseTitle;
             CourseCode = code;
             Description = description;
-            Category = category;
+            CategoryId = categoryId;
             InstructorId = instructorId;
         }
 
-        public static Course Create(string courseTitle, string code, string description, string category, Guid instructorId)
+        public static Course Create(string courseTitle, string code, string description, Guid categoryId, Guid instructorId)
         {
             if (string.IsNullOrWhiteSpace(courseTitle))
             { 
@@ -42,8 +42,9 @@ namespace Lms.CourseManagement.Domain.Entities
             // if (instructor.HasTooManyCourses()) throw new DomainException(...);
 
             // Add Create new Course Event
-
-            return new Course(courseTitle,  code, description, category, instructorId);
+            var newCourse = new Course(courseTitle, code, description, categoryId, instructorId);
+            newCourse.GenerateCourseCode();
+            return newCourse;
 
         }
 
@@ -77,7 +78,7 @@ namespace Lms.CourseManagement.Domain.Entities
 
             // Add a kernel-domain event to the list of events
             // This adds the event to be published internal CoursePublishEvent is of type IDomain\
-            AddDomainEvent(new CoursePublishedEvent(Id, CourseTitle, CourseCode, Category, 
+            AddDomainEvent(new CoursePublishedEvent(Id, CourseTitle, CourseCode, CategoryId, 
                 InstructorId, PublishedOn.Value, [..Modules]));
         }
 
@@ -115,6 +116,13 @@ namespace Lms.CourseManagement.Domain.Entities
                 AddDomainEvent(new DeletedPublishedCourseModuleEvent(Id, moduleId));
         }
 
+        public void GenerateCourseCode()
+        {
+            if (string.IsNullOrWhiteSpace(CourseTitle))
+                throw new ArgumentException("Prefix cannot be null or empty", nameof(CourseTitle));
+             var courseTitle = CourseTitle.Trim().Split(" ")[0][..3];
+            CourseCode = $"{CourseTitle.ToUpperInvariant()}-{Guid.NewGuid().ToString().Split('-')[0].ToUpperInvariant()}";
+        }
     }
 
     public enum CourseStatus

@@ -1,4 +1,5 @@
-﻿using Lms.ContentDelivery.Domain.Repositories;
+﻿using Lms.ContentDelivery.Application.Abstractions;
+using Lms.ContentDelivery.Domain.Repositories;
 using Lms.Shared.Abstractions.Messaging;
 using Lms.Shared.Application.CustomMediator.Interfaces.Notification;
 using Lms.Shared.IntegrationEvents.courseManagement;
@@ -8,9 +9,12 @@ namespace Lms.ContentDelivery.Application.EventHandlers
     public class DeletedPublishedCourseModuleIntegrationEventHandler : ICustomNotificationHandler<IntegrationEventNotification<DeletePublishedCourseModuleIntegrationEvent>>
     {
         private readonly ICourseContentRepository _courseContentRepository;
-        public DeletedPublishedCourseModuleIntegrationEventHandler(ICourseContentRepository courseContentRepository)
+        private readonly IContentDeliveryUnitOfWork _contentDeliveryUnitOfWork;
+        public DeletedPublishedCourseModuleIntegrationEventHandler(ICourseContentRepository courseContentRepository, 
+            IContentDeliveryUnitOfWork contentDeliveryUnitOfWork)
         {
             _courseContentRepository = courseContentRepository;
+            _contentDeliveryUnitOfWork = contentDeliveryUnitOfWork;
         }
         public async Task Handle(IntegrationEventNotification<DeletePublishedCourseModuleIntegrationEvent> notification, CancellationToken cancellationToken)
         {
@@ -22,7 +26,8 @@ namespace Lms.ContentDelivery.Application.EventHandlers
                 // TODO: Log Course content not found for CourseId {@event.CourseId
                 return;
             }
-            courseContent?.RemoveModuleFromCourse(@event.ModuleId);      
+            courseContent?.RemoveModuleFromCourse(@event.ModuleId); 
+            await _contentDeliveryUnitOfWork.SaveChangesAsync(cancellationToken);
         }
     }
 }

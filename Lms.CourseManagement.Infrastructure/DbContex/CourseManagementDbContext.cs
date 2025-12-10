@@ -42,5 +42,6 @@ namespace Lms.CourseManagement.Infrastructure.DbContex
         public DbSet<Content> Lessons { get; set; }
         public DbSet<LessonTag> LessonTags { get; set; }
         public DbSet<Instructor> Instructors  => Set<Instructor>();
+        public DbSet<CourseCategory> CourseCategories  => Set<CourseCategory>();
     }
 }

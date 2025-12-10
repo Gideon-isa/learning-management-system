@@ -28,7 +28,7 @@ namespace Lms.ContentDelivery.Infrastructure.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<string>("Category")
+                    b.Property<string>("CourseCategoryCode")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 

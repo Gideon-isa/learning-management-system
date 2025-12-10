@@ -4,9 +4,8 @@ using Lms.CourseManagement.Application.Features.Course.Queries.GetAllCourse;
 using Lms.CourseManagement.Application.Features.Course.Queries.GetCourseById;
 using Lms.CourseManagement.Application.Features.CourseFeatures.Commands.CreateCourse;
 using Lms.CourseManagement.Application.Features.CourseFeatures.Commands.DeleteCourse;
-using Lms.Identity.Infrastructure.Identity.Auth;
+using Lms.CourseManagement.Application.Features.CourseFeatures.Queries.CourseModule;
 using Lms.Shared.Application.Contracts;
-using Lms.Shared.Security.Permissions;
 using Mapster;
 using Microsoft.AspNetCore.Mvc;
 
@@ -70,7 +69,7 @@ namespace Lms.Api.Controllers
         }
 
         /// <summary>
-        /// 
+        ///  Retrieves a list of courses based on the specified query parameters.
         /// </summary>
         /// <param name="getCoursesRequest"></param>
         /// <param name="cancellationToken"></param>
@@ -80,6 +79,24 @@ namespace Lms.Api.Controllers
         public async Task<IActionResult> GetCourses([FromQuery] GetCoursesRequest getCoursesRequest, CancellationToken cancellationToken)
         {
             var query = getCoursesRequest.Adapt<GetCoursesQuery>();
+            var response = await CustomMediator.Send(query, cancellationToken);
+            if (response.IsSuccessful)
+                return Ok(response);
+            return BadRequest(response);
+        }
+
+        /// <summary>
+        /// Retrieves the list of modules associated with the specified course.
+        /// </summary>
+        /// <param name="courseId">The unique identifier of the course for which to retrieve modules.</param>
+        /// <param name="cancellationToken">A token to monitor for cancellation requests.</param>
+        /// <returns>An <see cref="IActionResult"/> containing the course modules if the operation is successful; otherwise, a
+        /// bad request result with error details.</returns>
+        [HttpGet]
+        [Route("{courseId}/modules")]
+        public async Task<IActionResult> GetCourseModules([FromRoute] Guid courseId, CancellationToken cancellationToken)
+        {
+            var query = new GetCourseModulesQuery { CourseId = courseId };
             var response = await CustomMediator.Send(query, cancellationToken);
             if (response.IsSuccessful)
                 return Ok(response);

@@ -4,7 +4,7 @@
         Guid CourseId, 
         string CourseTitle,
         string CourseCode,
-        string Category,
+        string CourseCategoryCode,
         Guid InstructorId, 
         DateTime PublishedOn,
         IEnumerable<PublishedModuleDto> ModuleEvent);

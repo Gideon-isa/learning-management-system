@@ -7,7 +7,7 @@ namespace Lms.CourseManagement.Domain.Events
         Guid CourseId, 
         string CourseTitle,
         string CourseCode,
-        string Category,
+        Guid CategoryId,
         Guid InstructorId,
         DateTime PublishedOn,
         List<CourseModule> Modules) : DomainEvent
